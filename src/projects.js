@@ -72,68 +72,71 @@ export default function VerticalTabs() {
           projects.push(doc.data());
         });
         setItems(projects);
-        console.log(projects);
       });
   }, []);
 
 
   // Main Body
   return (
-    <div className={classes.root}>
-      <Tabs
-        orientation="vertical"
-        variant="scrollable"
-        value={value}
-        onChange={handleChange}
-        aria-label="Vertical tabs example"
-        className={classes.tabs}
-      >
+    <div className={classes.root} style={{marginTop:"3em" }} id="smooth">
+      <div className="col-sm-1.5" styles={{ height: "100%" }}>
+        <div class="shadow p-3 mb-5 bg-white rounded mt-4 ml-3">
+          <Tabs
+            orientation="vertical"
+            variant="scrollable"
+            value={value}
+            onChange={handleChange}
+            aria-label="Vertical tabs example"
+            className={classes.tabs}
+          >
 
 
-        {projects.map((project, index) => (
-          <Tab label={project.title}{...a11yProps({ index })} />
-        ))}
+            {projects.map((project, index) => (
+              <Tab label={project.title}{...a11yProps({ index })} />
+            ))}
 
-      </Tabs>
-
-      {projects.map((project, index) => (
-        <TabPanel value={value} index={index}>
-          <h1><a style={{ textDecoration: "none", color:"black" }}  href={project.github}>{project.title}</a></h1>
-          <p>My Role: {project.role}</p>
-          <p>Project Description: {project.description}</p>
-          <p>Technologies Used: {project.tech}</p>
-
-
-          <div class="container">
-            <div class="row">
-              <div class="col-md-4">
-                <div class="thumbnail">
-                  <img src={project.image} style={{ width: "100%" }} ></img>
-                  <div class="caption">
+          </Tabs>
+        </div>
+      </div>
+      <div className="col-sm-10" styles={{ height: "100%" }}>
+        <div class="shadow p-3 mb-5 bg-white rounded mt-4 ml-3" id="smooth">
+          {projects.map((project, index) => (
+            <TabPanel value={value} index={index}>
+              <h1><a style={{ textDecoration: "none", color: "black" }} href={project.github}>{project.title}</a></h1>
+              <p>My Role: {project.role}</p>
+              <p>Project Description: {project.description}</p>
+              <p>Technologies Used: {project.tech}</p>
+              {/* 
+          <hr /> */}
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="thumbnail">
+                      <img src={project.image} style={{ width: "100%" }} ></img>
+                      <div class="caption">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="thumbnail">
+                      <img src={project.image1} style={{ width: "100%" }}></img>
+                      <div class="caption">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="thumbnail">
+                      <img src={project.image1} style={{ width: "100%" }}></img>
+                      <div class="caption">
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div class="col-md-4">
-                <div class="thumbnail">
-                  <img src={project.image1} style={{ width: "100%" }}></img>
-                  <div class="caption">
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="thumbnail">
-                  <img src={project.image1} style={{ width: "100%" }}></img>
-                  <div class="caption">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </TabPanel>
-      ))}
-
-
+            </TabPanel>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

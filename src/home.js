@@ -1,12 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
+import firestore from "./firestore";
+
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 import { useState, useEffect } from 'react';
-import firestore from "./firestore";
+
+import ExampleComponent from "react-rounded-image";
+import Background from './images/bgaaa.jpg';
+import './index.css'
 
 const db = firestore.firestore();
 
@@ -49,6 +52,17 @@ const useStyles = makeStyles(theme => ({
   tabs: {
     borderRight: `1px solid ${theme.palette.divider}`,
   },
+  categories: {
+    borderRadius: "25px",
+    border: "solid",
+    borderWidth: "thin",
+
+    backgroundColor: "rgba(129, 139, 124, 0.1);",
+    opacity: "90%",
+    padding: "0px 4px 0px",
+    height: "6px",
+    fontSize: "0.9em",
+  },
 }));
 
 export default function VerticalTabs() {
@@ -63,49 +77,214 @@ export default function VerticalTabs() {
 
 
   // for retriving all the projects
-  const [projects, setItems] = useState([])
+  const [aboutme, aboutmeput] = useState([])
+  const [skills, skillsput] = useState([])
+  const [work, workput] = useState([])
+  const [hobbies, hobbiesput] = useState([])
   useEffect(() => {
-    db.collection('home').get()
+    db.collection('about').get()
       .then(querySnapshot => {
         const projects = [];
         querySnapshot.docs.forEach(doc => {
           projects.push(doc.data());
         });
-        setItems(projects);
-        console.log(projects);
+        aboutmeput(projects);
+      });
+    db.collection('skills').orderBy("name", "asc").get()
+      .then(querySnapshot => {
+        const projects = [];
+        querySnapshot.docs.forEach(doc => {
+          projects.push(doc.data());
+        });
+        skillsput(projects);
+      });
+    db.collection('work').get()
+      .then(querySnapshot => {
+        const projects = [];
+        querySnapshot.docs.forEach(doc => {
+          projects.push(doc.data());
+        });
+        workput(projects);
+      });
+    db.collection('hobbies').get()
+      .then(querySnapshot => {
+        const projects = [];
+        querySnapshot.docs.forEach(doc => {
+          projects.push(doc.data());
+        });
+        hobbiesput(projects);
       });
   }, []);
 
 
+
   // Main Body
   return (
-    <div className={classes.root}>
-      <Tabs
-        orientation="vertical"
-        variant="scrollable"
-        value={value}
-        onChange={handleChange}
-        aria-label="Vertical tabs example"
-        className={classes.tabs}
-      >
+    <div style={{ fontSize: "16px", fontFamily: "Proxima Nova, sans-serif", lineHeight: "1.0rem", marginTop:"5em" } } >
+      {aboutme.map((aboutme, index) => (
 
+        <div class="shadow p-3 mb-5 rounded "
+          style={{
+            color: "white",
+            backgroundImage: `url(${Background})`,
+            backgroundSize: "cover",
 
-        {projects.map((project, index) => (
-          <Tab label={project.title}{...a11yProps({ index })} />
-        ))}
+            backgroundAttachment: "fixed", backgroundRepeat: "noRepeat"
+          }}>
 
-      </Tabs>
-
-      {projects.map((project, index) => (
-        <TabPanel value={value} index={index}>
-          <h1><a href={project.github}>{project.title}</a></h1>
-          <p>My Role: {project.role}</p>
-          <p>Project Description: {project.description}</p>
-          <p>Technologies Used: {project.tech}</p>
-        </TabPanel>
+          <div className="row">
+            <div className="col-sm-1">
+            </div>
+            <div className="col-sm-6" >
+              <br />
+              <h3>{aboutme.name}</h3>
+              <p>{aboutme.degree}</p>
+              <p className="fa fa-graduation-cap"> {aboutme.college}</p><br />
+              <p className="fa fa-map-marker"> {aboutme.currentlocation}</p>
+            </div>
+            <div className="col-sm-5">
+              <br />
+              <ExampleComponent
+                image={aboutme.myface}
+                roundedColor="white"
+                imageWidth="150"
+                imageHeight="150"
+                roundedSize="13"
+              />
+            </div>
+          </div>
+        </div>
       ))}
+      <br />
+      <div className="row" style={{ textAlign: "left", fontSize: "16px", fontFamily: "Proxima Nova, sans-serif" }}>
+        <div className="col-sm-1">
+        </div>
+        <div className="col-sm-5">
+          <div class="shadow p-3 mb-5 bg-white rounded zoom">
+            <table class="table table-borderless">
+              <thead>
+                <tr >
+                  <th scope="col" >
+                    <div >
+                      <span style={{ display: "inline" }} className="fa fa-graduation-cap"></span>
+                      <span style={{ fontFamily: "Proxima Nova, sans-serif" }}> EDUCATION</span>
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td >
+                    <div className="row">
+                      <div className="col-sm-1">
+                        <img src="https://firebasestorage.googleapis.com/v0/b/portfolio-6b427.appspot.com/o/isu.png?alt=media&token=aa20d626-345e-41e2-bcd3-2224ba58dea6" height="40" width="40" ></img>
+                        &nbsp; &nbsp;
+                      </div>
+                      <div className="col-sm-11 pl-4" style={{ verticalAlign: "center" }}>
+                        Iowa State University <br />
+                        <p className="fa fa-calendar"> 2015-2019</p>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>DEGREE <br /> Bachelor's</td>
+                </tr>
+                <tr>
+                  <td>MAJOR <br /> Computer Science</td>
+                </tr>
+              </tbody>
+            </table>
 
+          </div>
+          <br />
+          <div class="shadow p-3 mb-5 bg-white rounded zoom">
+            <table class="table  table-borderless" >
+              <thead>
+                <tr>
+                  <th scope="col">
+                    <span style={{ display: "inline" }} className="fa fa-pencil"></span>
+                    <span style={{ fontFamily: "Proxima Nova, sans-serif" }}> Skills</span>
 
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td >LANGUAGES <br />  <br />
+                    <p style={{ display: "inline", wordBreak: "keep-all", marginRight: "5px" }} className={classes.categories}>English</p>
+                    <p style={{ display: "inline", wordBreak: "keep-all", marginRight: "5px" }} className={classes.categories}>Hindi</p>
+                    <p style={{ display: "inline", wordBreak: "keep-all", marginRight: "5px" }} className={classes.categories}>Telegu</p>
+                  </td>
+                </tr>
+                <tr>
+                  <div style={{ paddingLeft: "15px", lineHeight: "1.5em" }}>
+                    <td style={{ display: "inline" }} >
+                      <p>SKILLS</p>
+                      {skills.map((skills, index) => (
+                        <p className={classes.categories} style={{ display: "inline", wordBreak: "keep-all",whiteSpace: "nowrap" , marginRight: "5px" }} value={value} index={index}> {skills.name}</p>
+
+                      ))}
+
+                    </td>
+                  </div>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+        <div className="col-sm-5">
+          <div class="shadow p-3 mb-5 bg-white rounded zoom">
+            <table class="table  table-borderless">
+              <thead>
+                <tr>
+                  <th scope="col">
+                    <span style={{ display: "inline" }} className="fa fa-building"></span>
+                    <span style={{ fontFamily: "Proxima Nova, sans-serif" }}> Work Experience</span>
+
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {work.map((work, index) => (
+                  <tr>
+                    <td value={value} index={index}>
+                      <p>{work.company}</p>
+                      <p>{work.role}</p>
+                      <p className="fa fa-calendar"> {work.duration}</p>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+
+          </div>
+          <div class="shadow p-3 mb-5 bg-white rounded zoom">
+            <table class="table  table-borderless">
+              <thead>
+                <tr>
+                  <th scope="col">
+                    <span style={{ display: "inline", }} className="fa fa-pencil"></span>
+                    <span style={{ fontFamily: "Proxima Nova, sans-serif" }}> Hobbies</span>
+                  </th>
+
+                </tr>
+                <ul>
+                  {hobbies.map((hobbies, index) => (
+
+                    <li value={value} index={index}>{hobbies.name}</li>
+
+                  ))}
+                </ul>
+
+              </thead>
+            </table>
+          </div>
+        </div>
+        <div className="col-sm-1">
+        </div>
+      </div>
     </div>
   );
 }
