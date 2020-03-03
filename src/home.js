@@ -73,7 +73,7 @@ export default function VerticalTabs() {
     setValue(newValue);
   };
 
-  // for retriving all the projects
+  // For retriving all data for this page
   const [aboutme, aboutmeput] = useState([])
   const [skills, skillsput] = useState([])
   const [work, workput] = useState([])

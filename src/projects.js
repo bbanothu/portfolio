@@ -60,8 +60,7 @@ export default function VerticalTabs() {
 
 
 
-  // for retriving all the projects
-  
+  // For retriving all data for this page
   const [projects, projectItems] = useState([])
   useEffect(() => {
     async function fetchData() {
@@ -75,7 +74,7 @@ export default function VerticalTabs() {
 
   // Main Body
   return (
-    <div className={classes.root} style={{marginTop:"3em" }} id="smooth">
+    <div className={classes.root} style={{ marginTop: "3em" }} id="smooth">
       <div className="col-sm-1.5" styles={{ height: "100%" }}>
         <div class="shadow p-3 mb-5 bg-white rounded mt-4 ml-3">
           <Tabs

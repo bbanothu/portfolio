@@ -59,7 +59,7 @@ export default function VerticalTabs() {
   };
 
 
-  // for retriving all the projects
+  // For retriving all data for this page
   const [projects, setItems] = useState([])
   const [projects_tasks, setItems1] = useState([])
   useEffect(() => {
@@ -96,8 +96,6 @@ export default function VerticalTabs() {
             aria-label="Vertical tabs example"
             className={classes.tabs}
           >
-
-
             {projects.map((project, index) => (
               <Tab label={project.title}{...a11yProps({ index })} />
             ))}
@@ -107,7 +105,6 @@ export default function VerticalTabs() {
       </div>
       <div className="col-sm-10" styles={{ height: "100%" }}>
         {projects.map((project, index) => (
-
           <TabPanel value={value} index={index}>
             <div class="shadow p-3 mb-5 bg-white rounded ">
               <h1><a style={{ textDecoration: "none", color: "black" }} href={project.github}>{project.title}</a></h1>
@@ -146,7 +143,6 @@ export default function VerticalTabs() {
             </div>
           </TabPanel>
         ))}
-
       </div>
     </div>
   );
