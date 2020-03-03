@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import firestore from "./firestore";
 
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
@@ -10,8 +9,9 @@ import { useState, useEffect } from 'react';
 import ExampleComponent from "react-rounded-image";
 import Background from './images/bgaaa.jpg';
 import './index.css'
+import axios from 'axios';
 
-const db = firestore.firestore();
+
 
 function TabPanel(props) {
   // Required code for proper tabs 
@@ -73,54 +73,42 @@ export default function VerticalTabs() {
     setValue(newValue);
   };
 
-
-
-
   // for retriving all the projects
   const [aboutme, aboutmeput] = useState([])
   const [skills, skillsput] = useState([])
   const [work, workput] = useState([])
   const [hobbies, hobbiesput] = useState([])
   useEffect(() => {
-    db.collection('about').get()
-      .then(querySnapshot => {
-        const projects = [];
-        querySnapshot.docs.forEach(doc => {
-          projects.push(doc.data());
-        });
-        aboutmeput(projects);
-      });
-    db.collection('skills').orderBy("name", "asc").get()
-      .then(querySnapshot => {
-        const projects = [];
-        querySnapshot.docs.forEach(doc => {
-          projects.push(doc.data());
-        });
-        skillsput(projects);
-      });
-    db.collection('work').get()
-      .then(querySnapshot => {
-        const projects = [];
-        querySnapshot.docs.forEach(doc => {
-          projects.push(doc.data());
-        });
-        workput(projects);
-      });
-    db.collection('hobbies').get()
-      .then(querySnapshot => {
-        const projects = [];
-        querySnapshot.docs.forEach(doc => {
-          projects.push(doc.data());
-        });
-        hobbiesput(projects);
-      });
+
+    async function fetchData() {
+      const aboutme = [];
+      var skills;
+      var work;
+      var hobbies;
+      await axios.get('https://us-central1-portfolio-6b427.cloudfunctions.net/getAboutMe').then((response) => {
+        aboutme.push(response.data);
+      })
+      await axios.get('https://us-central1-portfolio-6b427.cloudfunctions.net/getSkills').then((response) => {
+        skills = response.data;
+      })
+      await axios.get('https://us-central1-portfolio-6b427.cloudfunctions.net/getWork').then((response) => {
+        work = response.data;
+      })
+      await axios.get('https://us-central1-portfolio-6b427.cloudfunctions.net/getWork').then((response) => {
+        hobbies = response.data;
+      })
+      aboutmeput(aboutme);
+      skillsput(skills);
+      workput(work);
+      hobbiesput(hobbies);
+    } fetchData()
   }, []);
 
 
 
   // Main Body
   return (
-    <div style={{ fontSize: "16px", fontFamily: "Proxima Nova, sans-serif", lineHeight: "1.0rem", marginTop:"5em" } } >
+    <div style={{ fontSize: "16px", fontFamily: "Proxima Nova, sans-serif", lineHeight: "1.0rem", marginTop: "5em" }} >
       {aboutme.map((aboutme, index) => (
 
         <div class="shadow p-3 mb-5 rounded "
@@ -222,7 +210,7 @@ export default function VerticalTabs() {
                     <td style={{ display: "inline" }} >
                       <p>SKILLS</p>
                       {skills.map((skills, index) => (
-                        <p className={classes.categories} style={{ display: "inline", wordBreak: "keep-all",whiteSpace: "nowrap" , marginRight: "5px" }} value={value} index={index}> {skills.name}</p>
+                        <p className={classes.categories} style={{ display: "inline", wordBreak: "keep-all", whiteSpace: "nowrap", marginRight: "5px" }} value={value} index={index}> {skills.name}</p>
 
                       ))}
 

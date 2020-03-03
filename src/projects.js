@@ -6,9 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 import { useState, useEffect } from 'react';
-import firestore from "./firestore";
-
-const db = firestore.firestore();
+import axios from 'axios';
 
 function TabPanel(props) {
   // Required code for proper tabs 
@@ -63,18 +61,17 @@ export default function VerticalTabs() {
 
 
   // for retriving all the projects
-  const [projects, setItems] = useState([])
+  
+  const [projects, projectItems] = useState([])
   useEffect(() => {
-    db.collection('projects').get()
-      .then(querySnapshot => {
-        const projects = [];
-        querySnapshot.docs.forEach(doc => {
-          projects.push(doc.data());
-        });
-        setItems(projects);
-      });
+    async function fetchData() {
+      var projects;
+      await axios.get('https://us-central1-portfolio-6b427.cloudfunctions.net/getProjects').then((response) => {
+        projects = response.data;
+      })
+      projectItems(projects);
+    } fetchData()
   }, []);
-
 
   // Main Body
   return (

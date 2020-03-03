@@ -6,8 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 import { useState, useEffect } from 'react';
-import firestore from "./firestore";
-const db = firestore.firestore();
+import axios from 'axios';
+
 
 function TabPanel(props) {
   // Required code for proper tabs 
@@ -59,97 +59,95 @@ export default function VerticalTabs() {
   };
 
 
-
-
   // for retriving all the projects
   const [projects, setItems] = useState([])
   const [projects_tasks, setItems1] = useState([])
   useEffect(() => {
-    db.collection('newProjects').get()
-      .then(querySnapshot => {
-        const projects = [];
-        querySnapshot.docs.forEach(doc => {
-          projects.push(doc.data());
-        });
-        setItems(projects);
-      });
-    db.collection("currentTasks")
-      .orderBy("startdate", "asc").get()
-      .then(querySnapshot => {
-        const projects_tasks = [];
-        querySnapshot.docs.forEach(doc => {
-          projects_tasks.push(doc.data());
-        });
-        setItems1(projects_tasks);
-      });
+    async function fetchData() {
+      var projects;
+      var projects_tasks;
+      await axios.get('https://us-central1-portfolio-6b427.cloudfunctions.net/getNewProjects').then((response) => {
+        projects = response.data;
+      })
+      setItems(projects);
+
+      await axios.get('https://us-central1-portfolio-6b427.cloudfunctions.net/getNewProjectTasks').then((response) => {
+        projects_tasks = response.data;
+
+        console.log(projects_tasks);
+      })
+      setItems1(projects_tasks);
+    }
+    fetchData()
   }, []);
 
 
   // Main Body
   return (
-    <div className={classes.root} id="smooth" style={{marginTop:"3em" }}>
+    <div className={classes.root} id="smooth" style={{ marginTop: "3em" }}>
       <div className="col-sm-1.5" styles={{ height: "100%" }}>
-      <div class="shadow p-3 mb-5 bg-white rounded mt-4 ml-3">
-        <Tabs
-          orientation="vertical"
-          variant="scrollable"
-          value={value}
-          height=""
-          onChange={handleChange}
-          aria-label="Vertical tabs example"
-          className={classes.tabs}
-        >
+        <div class="shadow p-3 mb-5 bg-white rounded mt-4 ml-3">
+          <Tabs
+            orientation="vertical"
+            variant="scrollable"
+            value={value}
+            height=""
+            onChange={handleChange}
+            aria-label="Vertical tabs example"
+            className={classes.tabs}
+          >
 
 
-          {projects.map((project, index) => (
-            <Tab label={project.title}{...a11yProps({ index })} />
-          ))}
+            {projects.map((project, index) => (
+              <Tab label={project.title}{...a11yProps({ index })} />
+            ))}
 
-        </Tabs>
+          </Tabs>
         </div>
       </div>
       <div className="col-sm-10" styles={{ height: "100%" }}>
         {projects.map((project, index) => (
-          
+
           <TabPanel value={value} index={index}>
             <div class="shadow p-3 mb-5 bg-white rounded ">
-            <h1><a style={{ textDecoration: "none", color: "black" }} href={project.github}>{project.title}</a></h1>
-            <p>My Role: {project.role}</p>
-            <p>Project Description: {project.description}</p>
-            <p>Technologies Used: {project.tech}</p>
+              <h1><a style={{ textDecoration: "none", color: "black" }} href={project.github}>{project.title}</a></h1>
+              <p>My Role: {project.role}</p>
+              <p>Project Description: {project.description}</p>
+              <p>Technologies Used: {project.tech}</p>
             </div>
             {/* <hr /> */}
             <div class="shadow p-3 mb-5 bg-white rounded mt-2 ">
-            <div className="row container">
-              <h3>Current Tasks</h3>
-              <table class="table table-hover table-borderless">
-                <thead class="thead-dark">
-                  <tr>
-                    <th scope="col">Task</th>
-                    <th scope="col">Start Date</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">End Date</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {projects_tasks.filter(project1 => project1.id.includes(project.title)).map((project1, index) => (
-                    <tr value={value} index={index}>
-                      <th>{project1.task}</th>
-                      <td>{project1.startdate}</td>
-                      <td>{project1.status}</td>
-                      <td>{project1.enddate}</td>
+              <div className="row container">
+                <h3>Current Tasks</h3>
+                <table class="table table-hover table-borderless">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">Task</th>
+                      <th scope="col">Start Date</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">End Date</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                  </thead>
+                  <tbody>
+                    {
+                      //.id.includes(project.title)
+                      projects_tasks.filter(project1 => project1.id.includes(project.title)).map((project1, index) => (
+                        <tr value={value} index={index}>
+                          <th>{project1.task}</th>
+                          <td>{project1.startdate}</td>
+                          <td>{project1.status}</td>
+                          <td>{project1.enddate}</td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
+              </div>
 
             </div>
           </TabPanel>
         ))}
 
       </div>
-
     </div>
   );
 }
