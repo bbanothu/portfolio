@@ -4,10 +4,9 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
-
 
 function TabPanel(props) {
   // Required code for proper tabs 
@@ -58,7 +57,6 @@ export default function VerticalTabs() {
     setValue(newValue);
   };
 
-
   // For retriving all data for this page
   const [projects, setItems] = useState([])
   const [projects_tasks, setItems1] = useState([])
@@ -66,16 +64,13 @@ export default function VerticalTabs() {
     async function fetchData() {
       var projects;
       var projects_tasks;
-      await axios.get('https://us-central1-portfolio-6b427.cloudfunctions.net/getNewProjects').then((response) => {
+      await  axios.get('https://us-central1-portfolio-6b427.cloudfunctions.net/getNewProjects').then((response) => {
         projects = response.data;
       })
-      setItems(projects);
-
       await axios.get('https://us-central1-portfolio-6b427.cloudfunctions.net/getNewProjectTasks').then((response) => {
         projects_tasks = response.data;
-
-        console.log(projects_tasks);
       })
+      setItems(projects);
       setItems1(projects_tasks);
     }
     fetchData()
@@ -86,7 +81,7 @@ export default function VerticalTabs() {
   return (
     <div className={classes.root} id="smooth" style={{ marginTop: "3em" }}>
       <div className="col-sm-1.5" styles={{ height: "100%" }}>
-        <div class="shadow p-3 mb-5 bg-white rounded mt-4 ml-3">
+        <div className="shadow p-3 mb-5 bg-white rounded mt-4 ml-3">
           <Tabs
             orientation="vertical"
             variant="scrollable"
@@ -97,7 +92,7 @@ export default function VerticalTabs() {
             className={classes.tabs}
           >
             {projects.map((project, index) => (
-              <Tab label={project.title}{...a11yProps({ index })} />
+              <Tab key={index} label={project.title}{...a11yProps({ index })} />
             ))}
 
           </Tabs>
@@ -105,19 +100,19 @@ export default function VerticalTabs() {
       </div>
       <div className="col-sm-10" styles={{ height: "100%" }}>
         {projects.map((project, index) => (
-          <TabPanel value={value} index={index}>
-            <div class="shadow p-3 mb-5 bg-white rounded ">
+          <TabPanel key={index} value={value} index={index}>
+            <div className="shadow p-3 mb-5 bg-white rounded ">
               <h1><a style={{ textDecoration: "none", color: "black" }} href={project.github}>{project.title}</a></h1>
               <p>My Role: {project.role}</p>
               <p>Project Description: {project.description}</p>
               <p>Technologies Used: {project.tech}</p>
             </div>
             {/* <hr /> */}
-            <div class="shadow p-3 mb-5 bg-white rounded mt-2 ">
+            <div className="shadow p-3 mb-5 bg-white rounded mt-2 ">
               <div className="row container table-responsive">
                 <h3>Current Tasks</h3>
-                <table class="table table-hover table-borderless ">
-                  <thead class="thead-dark">
+                <table className="table table-hover table-borderless ">
+                  <thead className="thead-dark">
                     <tr>
                       <th scope="col">Task</th>
                       <th scope="col">Start Date</th>
@@ -129,7 +124,7 @@ export default function VerticalTabs() {
                     {
                       //.id.includes(project.title)
                       projects_tasks.filter(project1 => project1.id.includes(project.title)).map((project1, index) => (
-                        <tr value={value} index={index}>
+                        <tr key={index} value={value} index={index}>
                           <th>{project1.task}</th>
                           <td>{project1.startdate}</td>
                           <td>{project1.status}</td>

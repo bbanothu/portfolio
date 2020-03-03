@@ -1,47 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import { makeStyles } from '@material-ui/core/styles';
-import { useState, useEffect } from 'react';
-
 import ExampleComponent from "react-rounded-image";
 import Background from './images/bgaaa.jpg';
-import './index.css'
 import axios from 'axios';
-
-
-
-function TabPanel(props) {
-  // Required code for proper tabs 
-  const { children, value, index, ...other } = props;
-  return (
-    <Typography
-      component="div"
-      role="tabpanel"
-      hidden={value !== index}
-      id={`vertical-tabpanel-${index}`}
-      aria-labelledby={`vertical-tab-${index}`}
-      {...other}
-    >
-      {value === index && <Box p={3}>{children}</Box>}
-    </Typography>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
-};
-
-function a11yProps(index) {
-  return {
-    id: `vertical-tab-${index}`,
-    'aria-controls': `vertical-tabpanel-${index}`,
-  };
-}
+import { makeStyles } from '@material-ui/core/styles';
+import { useState, useEffect } from 'react';
+import './index.css'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -67,11 +30,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function VerticalTabs() {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
 
   // For retriving all data for this page
   const [aboutme, aboutmeput] = useState([])
@@ -111,7 +69,7 @@ export default function VerticalTabs() {
     <div style={{ fontSize: "16px", fontFamily: "Proxima Nova, sans-serif", lineHeight: "1.0rem", marginTop: "5em" }} >
       {aboutme.map((aboutme, index) => (
 
-        <div class="shadow p-3 mb-5 rounded "
+        <div key={index} className="shadow p-3 mb-5 rounded "
           style={{
             color: "white",
             backgroundImage: `url(${Background})`,
@@ -148,8 +106,8 @@ export default function VerticalTabs() {
         <div className="col-sm-1">
         </div>
         <div className="col-sm-5">
-          <div class="shadow p-3 mb-5 bg-white rounded zoom">
-            <table class="table table-borderless">
+          <div className="shadow p-3 mb-5 bg-white rounded zoom">
+            <table className="table table-borderless">
               <thead>
                 <tr >
                   <th scope="col" >
@@ -165,7 +123,7 @@ export default function VerticalTabs() {
                   <td >
                     <div className="row">
                       <div className="col-sm-1">
-                        <img src="https://firebasestorage.googleapis.com/v0/b/portfolio-6b427.appspot.com/o/isu.png?alt=media&token=aa20d626-345e-41e2-bcd3-2224ba58dea6" height="40" width="40" ></img>
+                        <img alt="isu" src="https://firebasestorage.googleapis.com/v0/b/portfolio-6b427.appspot.com/o/isu.png?alt=media&token=aa20d626-345e-41e2-bcd3-2224ba58dea6" height="40" width="40" ></img>
                         &nbsp; &nbsp;
                       </div>
                       <div className="col-sm-11 pl-4" style={{ verticalAlign: "center" }}>
@@ -186,8 +144,8 @@ export default function VerticalTabs() {
 
           </div>
           <br />
-          <div class="shadow p-3 mb-5 bg-white rounded zoom">
-            <table class="table  table-borderless" >
+          <div className="shadow p-3 mb-5 bg-white rounded zoom">
+            <table className="table  table-borderless" >
               <thead>
                 <tr>
                   <th scope="col">
@@ -206,16 +164,14 @@ export default function VerticalTabs() {
                   </td>
                 </tr>
                 <tr>
-                  <div style={{ paddingLeft: "15px", lineHeight: "1.5em" }}>
-                    <td style={{ display: "inline" }} >
-                      <p>SKILLS</p>
-                      {skills.map((skills, index) => (
-                        <p className={classes.categories} style={{ display: "inline", wordBreak: "keep-all", whiteSpace: "nowrap", marginRight: "5px" }} value={value} index={index}> {skills.name}</p>
+                  <td style={{ display: "inline", paddingLeft: "15px", lineHeight: "1.5em" }} >
+                    <p>SKILLS</p>
+                    {skills.map((skills, index) => (
+                      <p key={index} className={classes.categories} style={{ display: "inline", wordBreak: "keep-all", whiteSpace: "nowrap", marginRight: "5px" }} value={skills} index={index}> {skills.name}</p>
 
-                      ))}
+                    ))}
 
-                    </td>
-                  </div>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -223,8 +179,8 @@ export default function VerticalTabs() {
           </div>
         </div>
         <div className="col-sm-5">
-          <div class="shadow p-3 mb-5 bg-white rounded zoom">
-            <table class="table  table-borderless">
+          <div className="shadow p-3 mb-5 bg-white rounded zoom">
+            <table className="table  table-borderless">
               <thead>
                 <tr>
                   <th scope="col">
@@ -236,8 +192,8 @@ export default function VerticalTabs() {
               </thead>
               <tbody>
                 {work.map((work, index) => (
-                  <tr>
-                    <td value={value} index={index}>
+                  <tr key={index}>
+                    <td value={work} index={index}>
                       <p>{work.company}</p>
                       <p>{work.role}</p>
                       <p className="fa fa-calendar"> {work.duration}</p>
@@ -248,8 +204,8 @@ export default function VerticalTabs() {
             </table>
 
           </div>
-          <div class="shadow p-3 mb-5 bg-white rounded zoom">
-            <table class="table  table-borderless">
+          <div className="shadow p-3 mb-5 bg-white rounded zoom">
+            <table className="table  table-borderless">
               <thead>
                 <tr>
                   <th scope="col">
@@ -258,14 +214,17 @@ export default function VerticalTabs() {
                   </th>
 
                 </tr>
-                <ul>
-                  {hobbies.map((hobbies, index) => (
+                <tr>
+                  <td>
+                    <ul>
+                      {hobbies.map((hobbies, index) => (
 
-                    <li value={value} index={index}>{hobbies.name}</li>
+                        <li key={index} value={hobbies} index={index}>{hobbies.name}</li>
 
-                  ))}
-                </ul>
-
+                      ))}
+                    </ul>
+                  </td>
+                </tr>
               </thead>
             </table>
           </div>
