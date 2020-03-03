@@ -58,24 +58,24 @@ export default function VerticalTabs() {
   };
 
   // For retriving all data for this page
-  const [projects, setItems] = useState([])
-  const [projects_tasks, setItems1] = useState([])
+  const [projects, projectsPut] = useState([])
+  const [projectsTasks, projectTasksPut] = useState([])
   useEffect(() => {
     async function fetchData() {
       var projects;
-      var projects_tasks;
-      await  axios.get('https://us-central1-portfolio-6b427.cloudfunctions.net/getNewProjects').then((response) => {
-        projects = response.data;
-      })
-      await axios.get('https://us-central1-portfolio-6b427.cloudfunctions.net/getNewProjectTasks').then((response) => {
-        projects_tasks = response.data;
-      })
-      setItems(projects);
-      setItems1(projects_tasks);
-    }
-    fetchData()
+      var projectsTasks;
+      await axios.all([
+        axios.get('https://us-central1-portfolio-6b427.cloudfunctions.net/getNewProjects'),
+        axios.get('https://us-central1-portfolio-6b427.cloudfunctions.net/getNewProjectTasks'),
+      ])
+      .then(responseArr => {
+        projects = responseArr[0].data
+        projectsTasks = responseArr[1].data
+      });
+      projectsPut(projects);
+      projectTasksPut(projectsTasks);
+    } fetchData()
   }, []);
-
 
   // Main Body
   return (
@@ -89,8 +89,7 @@ export default function VerticalTabs() {
             height=""
             onChange={handleChange}
             aria-label="Vertical tabs example"
-            className={classes.tabs}
-          >
+            className={classes.tabs}>
             {projects.map((project, index) => (
               <Tab key={index} label={project.title}{...a11yProps({ index })} />
             ))}
@@ -107,7 +106,6 @@ export default function VerticalTabs() {
               <p>Project Description: {project.description}</p>
               <p>Technologies Used: {project.tech}</p>
             </div>
-            {/* <hr /> */}
             <div className="shadow p-3 mb-5 bg-white rounded mt-2 ">
               <div className="row container table-responsive">
                 <h3>Current Tasks</h3>
@@ -122,8 +120,7 @@ export default function VerticalTabs() {
                   </thead>
                   <tbody>
                     {
-                      //.id.includes(project.title)
-                      projects_tasks.filter(project1 => project1.id.includes(project.title)).map((project1, index) => (
+                      projectsTasks.filter(project1 => project1.id.includes(project.title)).map((project1, index) => (
                         <tr key={index} value={value} index={index}>
                           <th>{project1.task}</th>
                           <td>{project1.startdate}</td>

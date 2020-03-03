@@ -30,39 +30,37 @@ const useStyles = makeStyles(theme => ({
 
 export default function VerticalTabs() {
   const classes = useStyles();
-
   // For retriving all data for this page
-  const [aboutme, aboutmeput] = useState([])
-  const [skills, skillsput] = useState([])
-  const [work, workput] = useState([])
-  const [hobbies, hobbiesput] = useState([])
-  useEffect(() => {
+  const [aboutme, aboutmePut] = useState([])
+  const [skills, skillsPut] = useState([])
+  const [work, workPut] = useState([])
+  const [hobbies, hobbiesPut ] = useState([])
 
+  useEffect(() => {
     async function fetchData() {
       const aboutme = [];
       var skills;
       var work;
       var hobbies;
-      await axios.get('https://us-central1-portfolio-6b427.cloudfunctions.net/getAboutMe').then((response) => {
-        aboutme.push(response.data);
-      })
-      await axios.get('https://us-central1-portfolio-6b427.cloudfunctions.net/getSkills').then((response) => {
-        skills = response.data;
-      })
-      await axios.get('https://us-central1-portfolio-6b427.cloudfunctions.net/getWork').then((response) => {
-        work = response.data;
-      })
-      await axios.get('https://us-central1-portfolio-6b427.cloudfunctions.net/getHobbies').then((response) => {
-        hobbies = response.data;
-      })
-      aboutmeput(aboutme);
-      skillsput(skills);
-      workput(work);
-      hobbiesput(hobbies);
+      await axios.all([
+        axios.get('https://us-central1-portfolio-6b427.cloudfunctions.net/getAboutMe'),
+        axios.get('https://us-central1-portfolio-6b427.cloudfunctions.net/getSkills'),
+        axios.get('https://us-central1-portfolio-6b427.cloudfunctions.net/getWork'),
+        axios.get('https://us-central1-portfolio-6b427.cloudfunctions.net/getHobbies'),
+      ])
+      .then(responseArr => {
+        //this will be executed only when all requests are complete
+        aboutme.push(responseArr[0].data);
+        skills = responseArr[1].data
+        work = responseArr[2].data
+        hobbies = responseArr[3].data
+      });
+      aboutmePut(aboutme);
+      skillsPut(skills);
+      workPut(work);
+      hobbiesPut(hobbies);
     } fetchData()
   }, []);
-
-
 
   // Main Body
   return (
