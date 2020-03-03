@@ -34,7 +34,7 @@ export default function VerticalTabs() {
   const [aboutme, aboutmePut] = useState([])
   const [skills, skillsPut] = useState([])
   const [work, workPut] = useState([])
-  const [hobbies, hobbiesPut ] = useState([])
+  const [hobbies, hobbiesPut] = useState([])
 
   useEffect(() => {
     async function fetchData() {
@@ -48,13 +48,13 @@ export default function VerticalTabs() {
         axios.get('https://us-central1-portfolio-6b427.cloudfunctions.net/getWork'),
         axios.get('https://us-central1-portfolio-6b427.cloudfunctions.net/getHobbies'),
       ])
-      .then(responseArr => {
-        //this will be executed only when all requests are complete
-        aboutme.push(responseArr[0].data);
-        skills = responseArr[1].data
-        work = responseArr[2].data
-        hobbies = responseArr[3].data
-      });
+        .then(responseArr => {
+          //this will be executed only when all requests are complete
+          aboutme.push(responseArr[0].data);
+          skills = responseArr[1].data
+          work = responseArr[2].data
+          hobbies = responseArr[3].data
+        });
       aboutmePut(aboutme);
       skillsPut(skills);
       workPut(work);
@@ -119,16 +119,8 @@ export default function VerticalTabs() {
               <tbody>
                 <tr>
                   <td >
-                    <div className="row">
-                      <div className="col-sm-1">
-                        <img alt="isu" src="https://firebasestorage.googleapis.com/v0/b/portfolio-6b427.appspot.com/o/isu.png?alt=media&token=aa20d626-345e-41e2-bcd3-2224ba58dea6" height="40" width="40" ></img>
-                        &nbsp; &nbsp;
-                      </div>
-                      <div className="col-sm-11 pl-4" style={{ verticalAlign: "center" }}>
-                        Iowa State University <br />
-                        <p className="fa fa-calendar"> 2015-2019</p>
-                      </div>
-                    </div>
+                    Iowa State University <br />
+                    <p className="fa fa-calendar">&nbsp;&nbsp;2015-2019</p>
                   </td>
                 </tr>
                 <tr>
