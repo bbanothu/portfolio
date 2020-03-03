@@ -12,6 +12,7 @@ node_modules
 /src/firestore.js
 src/firestore.js
 /functions/index.js
+/functions
 
 
 # testing
