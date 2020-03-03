@@ -94,7 +94,7 @@ export default function VerticalTabs() {
       await axios.get('https://us-central1-portfolio-6b427.cloudfunctions.net/getWork').then((response) => {
         work = response.data;
       })
-      await axios.get('https://us-central1-portfolio-6b427.cloudfunctions.net/getWork').then((response) => {
+      await axios.get('https://us-central1-portfolio-6b427.cloudfunctions.net/getHobbies').then((response) => {
         hobbies = response.data;
       })
       aboutmeput(aboutme);
