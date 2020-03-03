@@ -116,7 +116,7 @@ export default function VerticalTabs() {
             <div class="shadow p-3 mb-5 bg-white rounded mt-2 ">
               <div className="row container">
                 <h3>Current Tasks</h3>
-                <table class="table table-hover table-borderless">
+                <table class="table table-hover table-borderless table-responsive">
                   <thead class="thead-dark">
                     <tr>
                       <th scope="col">Task</th>
