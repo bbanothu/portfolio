@@ -4,10 +4,8 @@ import Loading from "./images/loading.svg";
 import ExampleComponent from "react-rounded-image";
 import Background from './images/bgaaa.jpg';
 import "./css/index.css"
+
 class Home extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   // multi fetch
   async loadJson() {
@@ -20,12 +18,13 @@ class Home extends Component {
     return data;
   }
 
+  // Render Function
   render() {
     return (
       <Async promiseFn={this.loadJson}>
         {({ data, error, isLoading }) => {
-          if (isLoading) return <div style={{ marginTop: "5em" }}>
-            <img src={Loading} style={{
+          if (isLoading) return <div style={{ marginTop: "3em" }}>
+            <img alt="loading" src={Loading} style={{
               display: "block",
               marginLeft: "auto",
               marginRight: "auto"
@@ -33,7 +32,7 @@ class Home extends Component {
           if (error) return `Something went wrong: ${error.message}`
           if (data)
             return (
-              <div style={{ fontSize: "16px", fontFamily: "Proxima Nova, sans-serif", lineHeight: "1.0rem", marginTop: "5em" }} >
+              <div style={{ fontSize: "16px", fontFamily: "Proxima Nova, sans-serif", lineHeight: "1.0rem", marginTop: "3em" }} >
                 <div className="shadow p-3 mb-5 rounded "
                   style={{
                     color: "white",
@@ -75,7 +74,7 @@ class Home extends Component {
                             <th scope="col" >
                               <div >
                                 <span style={{ display: "inline" }} className="fa fa-graduation-cap"></span>
-                                <span style={{ fontFamily: "Proxima Nova, sans-serif" }}> EDUCATION</span>
+                                <span style={{ fontFamily: "Proxima Nova, sans-serif" }}> Education</span>
                               </div>
                             </th>
                           </tr>
@@ -109,17 +108,16 @@ class Home extends Component {
                         </thead>
                         <tbody>
                           <tr>
-                            <td >LANGUAGES <br />  <br />
-                              <p style={{ display: "inline", wordBreak: "keep-all", marginRight: "5px" }}>English</p>
-                              <p style={{ display: "inline", wordBreak: "keep-all", marginRight: "5px" }}>Hindi</p>
-                              <p style={{ display: "inline", wordBreak: "keep-all", marginRight: "5px" }}>Telegu</p>
+                            <td >Languages:<br /><br />
+                              <p id="ovalOutline">English</p>
+                              <p id="ovalOutline">Hindi</p>
+                              <p id="ovalOutline">Telegu</p>
                             </td>
                           </tr>
                           <tr>
-                            <td style={{ display: "inline", paddingLeft: "15px", lineHeight: "1.5em" }} >
-                              <p>SKILLS</p>
+                            <td >Technical Experience: <br /><br />
                               {data[1].map((skills, index) => (
-                                <p id="skills" key={index}  value={skills} index={index}> {skills.name}</p>
+                                <p id="ovalOutline" key={index} value={skills} index={index}> {skills.name}</p>
                               ))}
                             </td>
                           </tr>

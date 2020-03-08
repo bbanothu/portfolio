@@ -3,14 +3,12 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Home from './home';
 import Projects from './projects';
 import newProjects from './newProjects';
-import Test from './test';
-import Test1 from './test1';
 import './css/index.css'
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-tabs/style/react-tabs.css';
 
 class App extends Component {
+  // initialize navbar values
   constructor(props) {
     super(props);
     this.state = {
@@ -20,6 +18,7 @@ class App extends Component {
     this.toggleMenu = this.toggleMenu.bind(this);
   }
 
+  // Used to toggle navbar
   toggleMenu() {
     if (this.state.menu) {
       this.setState({ menu: !this.state.menu })
@@ -30,6 +29,7 @@ class App extends Component {
     }
   }
 
+  // Render Function
   render() {
     return (
       <div id="smooth">
@@ -53,13 +53,8 @@ class App extends Component {
           <Route exact path="/" component={Home} />
           <Route path="/projects" component={Projects} />
           <Route path="/newProjects" component={newProjects} />
-
-          <Route path="/test" component={Test} />
-          <Route path="/test1" component={Test1} />
-
         </Router>
       </div>
-
     );
   }
 }
