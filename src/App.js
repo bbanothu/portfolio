@@ -3,7 +3,10 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Home from './home';
 import Projects from './projects';
 import newProjects from './newProjects';
-import './index.css'
+import Test from './test';
+import Test1 from './test1';
+import './css/index.css'
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-tabs/style/react-tabs.css';
 
@@ -50,6 +53,10 @@ class App extends Component {
           <Route exact path="/" component={Home} />
           <Route path="/projects" component={Projects} />
           <Route path="/newProjects" component={newProjects} />
+
+          <Route path="/test" component={Test} />
+          <Route path="/test1" component={Test1} />
+
         </Router>
       </div>
 
