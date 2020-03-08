@@ -12,8 +12,46 @@ class projects extends Component {
       .then(res => (res.ok ? res : Promise.reject(res)))
       .then(res => res.json())
 
-  // Render Function
+  // Render Function      
   render() {
+    // Conditonally render images
+    const images = (image, image1, image2) => {
+      if (image == null) {
+        return (
+          <div></div>
+        )
+      } else {
+        return (
+          <div className="container">
+            <hr />
+            <div className="row">
+              <div className="col-md-4">
+                <div className="thumbnail">
+                  <img alt="" src={image} style={{ width: "100%" }} ></img>
+                  <div className="caption">
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-4">
+                <div className="thumbnail">
+                  <img alt="" src={image1} style={{ width: "100%" }}></img>
+                  <div className="caption">
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-4">
+                <div className="thumbnail">
+                  <img alt="" src={image2} style={{ width: "100%" }}></img>
+                  <div className="caption">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )
+      }
+    }
+
     return (
       <Async promiseFn={this.loadJson}>
         {({ data, error, isLoading }) => {
@@ -39,31 +77,7 @@ class projects extends Component {
                       <p>My Role: {project.role}</p>
                       <p>Project Description: {project.description}</p>
                       <p>Technologies Used: {project.tech}</p>
-                      <div className="container">
-                        <div className="row">
-                          <div className="col-md-4">
-                            <div className="thumbnail">
-                              <img alt="" src={project.image} style={{ width: "100%" }} ></img>
-                              <div className="caption">
-                              </div>
-                            </div>
-                          </div>
-                          <div className="col-md-4">
-                            <div className="thumbnail">
-                              <img alt="" src={project.image1} style={{ width: "100%" }}></img>
-                              <div className="caption">
-                              </div>
-                            </div>
-                          </div>
-                          <div className="col-md-4">
-                            <div className="thumbnail">
-                              <img alt="" src={project.image2} style={{ width: "100%" }}></img>
-                              <div className="caption">
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                      {images(project.image, project.image1, project.image2)}
                     </div>
                   </TabPanel>
                 ))}
