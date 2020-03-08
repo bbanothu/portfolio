@@ -117,7 +117,11 @@ class Home extends Component {
                           <tr>
                             <td >Technical Experience: <br /><br />
                               {data[1].map((skills, index) => (
+<<<<<<< HEAD
                                 <p id="ovalOutline" key={index} value={skills} index={index}> {skills.name}</p>
+=======
+                                <p id="skills" key={index}  value={skills} index={index}> {skills.name}</p>
+>>>>>>> master
                               ))}
                             </td>
                           </tr>
