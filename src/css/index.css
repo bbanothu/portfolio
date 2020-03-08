@@ -1,7 +1,7 @@
 body {
   margin: 0;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  background-image: url("../images/bg_rock.jpg") ; 
+  background-image: url("../images/bg_rock.jpg");
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -10,16 +10,57 @@ body {
   background-size: cover;
   font-size: 1.0rem;
 }
+
 code {
   font-family: Baskerville, "Baskerville Old Face", "Goudy Old Style", Garamond, "Times New Roman", serif;
 }
 
 /* Wrapper */
-@-moz-keyframes smooth { 0% { opacity: 0; } 100% { opacity: 1; } }
-@-webkit-keyframes smooth { 0% { opacity: 0; } 100% { opacity: 1; } }
-@-o-keyframes smooth { 0% { opacity: 0; } 100% { opacity: 1; } }
-@-ms-keyframes smooth { 0% { opacity: 0; } 100% { opacity: 1; } }
-@keyframes smooth { 0% { opacity: 0; } 100% { opacity: 1; } }
+
+@-moz-keyframes smooth {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes smooth {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes smooth {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-ms-keyframes smooth {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes smooth {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 
 #smooth {
   -moz-animation: smooth 1.5s forwards;
@@ -30,12 +71,12 @@ code {
 }
 
 #light {
-  Color:"white";
+  Color: "white";
   background-color: "white";
 }
 
 .navbar {
-  background-image: url("../images/bg_rock.jpg") ;
+  background-image: url("../images/bg_rock.jpg");
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -44,18 +85,21 @@ code {
   background-size: cover;
 }
 
-
 .navbar .navbar-toggler .icon-bar {
   background-color: white;
 }
+
 /* [2] Transition property for smooth transformation of images */
+
 .zoom {
-  transition: transform .2s; /* Animation */
+  transition: transform .2s;
+  /* Animation */
   margin: 0 auto;
 }
 
 /* [3] Finally, transforming the image when container gets hovered */
-.zoom:hover  {
+
+.zoom:hover {
   transform: scale(1.05);
 }
 
@@ -63,14 +107,13 @@ code {
   border-radius: 25px;
   border: solid;
   border-width: thin;
-
   background-image: rgba(129, 139, 124, 0.1);
   padding: 0px 4px 0px;
   height: 6px;
   font-size: 0.9em;
   display: inline;
-   word-break: keep-all;
-    white-Space: nowrap; 
-    margin-right: 5px;
-    line-height: 1.5em; 
+  word-break: keep-all;
+  white-Space: nowrap;
+  margin-right: 5px;
+  line-height: 1.5em;
 }
