@@ -78,6 +78,8 @@ class projects extends Component {
                       <p>Project Description: {project.description}</p>
                       <p>Technologies Used: {project.tech}</p>
                       {images(project.image, project.image1, project.image2)}
+                      {images(project.image3, project.image4, project.image5)}
+                      {images(project.image6, project.image7, project.image8)}
                     </div>
                   </TabPanel>
                 ))}
