@@ -72,14 +72,14 @@ class Home extends Component {
                           <p className="fa fa-graduation-cap"> {data[3].college}</p><br />
 
 
-                          <p className="fa fa-map-marker"> 
-                          <form>
-                         <label>
-    <input type="text" name="location" defaultValue={data[3].currentlocation} />
-  </label>   
-                          
-  <input type="submit" value="Submit" />
-</form>           
+                          <p className="fa fa-map-marker">
+                            <form>
+                              <label>
+                                <input type="text" name="location" defaultValue={data[3].currentlocation} />
+                              </label>
+
+                              <input type="submit" value="Submit" />
+                            </form>
                           </p>
                         </div>
                         <div className="col-sm-5">
