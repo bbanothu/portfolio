@@ -83,7 +83,6 @@ class main extends Component {
                   <TabPanel key={index} tabId={project.title} style={{ color: "black", width: "80%" }}>
                     <div className="shadow p-3 mb-5 bg-white rounded mt-4 ml-3 ">
                       <h1><a style={{ textDecoration: "none", color: "black" }} href={project.github}>{project.title}</a></h1>
-                      <p>My Role: {project.role}</p>
                       <p>Project Description: {project.description}</p>
                       <p>Technologies Used: {project.tech}</p>
                       {images(project.image, project.image1, project.image2)}
