@@ -10,6 +10,7 @@ node_modules
 
 # sensitive files
 /src/firestore.js
+/src/firebase/firebase.js
 src/firestore.js
 /functions/index.js
 /functions
