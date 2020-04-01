@@ -40,3 +40,4 @@ yarn-error.log*
 
 firebase-debug.log
 src/firebase
+node_modules/
