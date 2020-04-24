@@ -19,6 +19,10 @@ class main extends Component {
   // Render Function      
   render() {
     // Conditonally render images
+
+    const styles = {
+
+    }
     const images = (image, image1, image2) => {
       if (image == null) {
         return (
@@ -26,26 +30,26 @@ class main extends Component {
         )
       } else {
         return (
-          <div className="container">
+          <div>
             <hr />
             <div className="row">
-              <div className="col-md-4">
+              <div id="rcorners" className="col-md-4 ">
                 <div className="thumbnail">
-                  <img alt="" src={image} style={{ width: "100%" }} ></img>
+                  <img className="shadow" id="rcorners" alt="" src={image} style={{ width: "100%" }} ></img>
                   <div className="caption">
                   </div>
                 </div>
               </div>
-              <div className="col-md-4">
+              <div id="rcorners" className="col-md-4">
                 <div className="thumbnail">
-                  <img alt="" src={image1} style={{ width: "100%" }}></img>
+                  <img className="shadow" id="rcorners" alt="" src={image1} style={{ width: "100%" }}></img>
                   <div className="caption">
                   </div>
                 </div>
               </div>
-              <div className="col-md-4">
+              <div id="rcorners" className="col-md-4">
                 <div className="thumbnail">
-                  <img alt="" src={image2} style={{ width: "100%" }}></img>
+                  <img className="shadow" id="rcorners" alt="" src={image2} style={{ width: "100%" }}></img>
                   <div className="caption">
                   </div>
                 </div>
