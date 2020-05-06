@@ -11,7 +11,7 @@
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
     "cors": "^2.8.5",
-    "firebase": "^7.9.1",
+    "firebase": "^7.14.2",
     "font-awesome": "^4.7.0",
     "gatsby-link": "^2.2.29",
     "jquery": "^3.4.1",
@@ -32,7 +32,9 @@
     "react-tabs": "^3.1.0",
     "react-web-tabs": "^1.0.1",
     "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "tauist": "^1.1.1",
+    "treasury": "^2.2.1"
   },
   "scripts": {
     "start": "react-scripts start",
