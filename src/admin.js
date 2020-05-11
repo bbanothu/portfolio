@@ -68,6 +68,8 @@ class Home extends Component {
     this.setState({
       pictures: this.state.pictures.concat(picture),
     });
+
+    console.log(this.state.pictures);
   }
 
   handleLogout = () => {
@@ -125,48 +127,68 @@ class Home extends Component {
                     style={{ color: "black", width: "80%" }}
                   >
                     <div className="shadow p-3 mb-5 bg-white rounded mt-4  ">
-                      <p
-                        style={{
-                          textDecoration: "none",
-                          color: "black",
-                        }}
-                      >
-                        Project Title:
-                        <TextField
-                          id="add-tag-input"
-                          label="Add a tag"
-                          multiline
-                          onChange={this.changeProjectTitle.bind(this)}
-                        />
-                      </p>
-                      <p>
-                        My Role:
-                        <TextField
-                          id="add-tag-input"
-                          label="Add a tag"
-                          multiline
-                          onChange={this.changeRole.bind(this)}
-                        />
-                      </p>
-                      <p>
-                        Project Description:
-                        <TextField
-                          id="add-tag-input"
-                          label="Add a tag"
-                          multiline
-                          onChange={this.changeProjectDescription.bind(this)}
-                        />
-                      </p>
-                      <p>
-                        Technologies Used:
-                        <TextField
-                          id="add-tag-input"
-                          label="Add a tag"
-                          multiline
-                          onChange={this.changetTechUsed.bind(this)}
-                        />
-                      </p>
+                      <div className="row">
+                        <div className="col-sm-2">
+                          <p
+                            style={{
+                              textDecoration: "none",
+                              color: "black",
+                            }}
+                          >
+                            Project Title:
+                          </p>
+                        </div>
+                        <div className="col-sm-10">
+                          <TextField
+                            id="add-tag-input"
+                            label="Project Title"
+                            multiline
+                            onChange={this.changeProjectTitle.bind(this)}
+                          />
+                        </div>
+                      </div>
 
+                      <div className="row">
+                        <div className="col-sm-2">
+                          <p>My Role: </p>
+                        </div>
+                        <div className="col-sm-10">
+                          <TextField
+                            id="add-tag-input"
+                            label="Role"
+                            multiline
+                            onChange={this.changeRole.bind(this)}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="row">
+                        <div className="col-sm-2">
+                          <p>Project Description: </p>
+                        </div>
+                        <div className="col-sm-10">
+                          <TextField
+                            id="add-tag-input"
+                            label="Project Description"
+                            multiline
+                            onChange={this.changeProjectDescription.bind(this)}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="row">
+                        <div className="col-sm-2">
+                          <p>Technologies Used:</p>
+                        </div>
+                        <div className="col-sm-10">
+                          <TextField
+                            id="add-tag-input"
+                            label="Technologies Used"
+                            multiline
+                            onChange={this.changetTechUsed.bind(this)}
+                          />
+                        </div>
+                      </div>
                       <ImageUploader
                         withIcon={true}
                         buttonText="Choose images"

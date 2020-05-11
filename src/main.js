@@ -23,8 +23,6 @@ class main extends Component {
   // Render Function
   render() {
     // Conditonally render images
-
-    const styles = {};
     const images = (image, image1, image2) => {
       if (image == null) {
         return <div></div>;
