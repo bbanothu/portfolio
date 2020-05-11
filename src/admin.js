@@ -56,18 +56,18 @@ class Home extends Component {
   }
 
   addLinks() {
-    var links = [];
+    var newLinksArray = [];
     for (var i = 0; i < this.state.pictures.length; i++) {
       const mainImage = storageRef.child(this.state.pictures[i].name);
       mainImage.put(this.state.pictures[i]).then((snapshot) => {
-        mainImage.getDownloadURL().then((url) => {
-          var newLinksArray = this.state.pictureLinks;
+        snapshot.ref.getDownloadURL().then((url) => {
           newLinksArray.push(url)
-          this.setState({ pictureLinks: newLinksArray });
+          console.log(url)
         });
       });
     }
 
+    this.setState({ pictureLinks: newLinksArray });
     console.log(this.state.pictureLinks)
     this.uploadNewProject();
   }
