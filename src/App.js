@@ -45,6 +45,17 @@ class App extends Component {
         <Provider store={store}>
           <Router>
             <nav className="navbar navbar-expand-md navbar-light fixed-top ">
+              <a
+                className="pull-right"
+                style={{
+                  textAlign: "right",
+                  color: "white",
+                  textDecoration: "none",
+                }}
+                href="https:/bharath.banothu.com"
+              >
+                <h1>BHARATH BANOTHU</h1>
+              </a>
               <button
                 className=" pull-left navbar-toggler"
                 type="button"

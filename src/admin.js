@@ -3,10 +3,30 @@ import { connect } from "react-redux";
 import { logoutUser } from "./actions";
 import Async from "react-async";
 import { Tab, TabPanel, Tabs, TabList } from "react-web-tabs";
+import Button from "react-bootstrap/Button";
+import ImageUploader from "react-images-upload";
+import {
+  Typography,
+  Card,
+  CardContent,
+  TextField,
+  Collapse,
+} from "@material-ui/core";
 import Loading from "./images/loading.svg";
 import "./css/index.css";
-import ExampleComponent from "react-rounded-image";
 class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchValTags: "",
+      projectTitle: "",
+      role: "",
+      projectDescription: "",
+      techUsed: "",
+      pictures: [],
+    };
+    this.addPictures = this.addPictures.bind(this);
+  }
   // Single fetch
   async loadJson() {
     var data = [];
@@ -22,6 +42,32 @@ class Home extends Component {
 
     data = Promise.all([promise1, promise2, promise3]);
     return data;
+  }
+  changeProjectTitle(e) {
+    this.setState({
+      projectTitle: e.target.value,
+    });
+  }
+  changeRole(e) {
+    this.setState({
+      role: e.target.value,
+    });
+  }
+  changeProjectDescription(e) {
+    this.setState({
+      projectDescription: e.target.value,
+    });
+  }
+  changetTechUsed(e) {
+    this.setState({
+      techUsed: e.target.value,
+    });
+  }
+
+  addPictures(picture) {
+    this.setState({
+      pictures: this.state.pictures.concat(picture),
+    });
   }
 
   handleLogout = () => {
@@ -53,7 +99,7 @@ class Home extends Component {
             return (
               <div>
                 <Tabs
-                  defaultTab={data[0][0].title}
+                  defaultTab="Add New Project"
                   vertical
                   style={{ color: "white", marginTop: "3em" }}
                 >
@@ -61,6 +107,8 @@ class Home extends Component {
                     className="shadow p-3 mb-5 bg-white  mt-4 ml-3 "
                     style={{ height: "80%" }}
                   >
+                    <Tab tabFor="Add New Project">Add New Project</Tab>
+
                     {data[0].map((project, index) => (
                       <Tab key={index} tabFor={project.title}>
                         {project.title}
@@ -72,7 +120,68 @@ class Home extends Component {
                       </Tab>
                     ))}
                   </TabList>
+                  <TabPanel
+                    tabId="Add New Project"
+                    style={{ color: "black", width: "80%" }}
+                  >
+                    <div className="shadow p-3 mb-5 bg-white rounded mt-4  ">
+                      <p
+                        style={{
+                          textDecoration: "none",
+                          color: "black",
+                        }}
+                      >
+                        Project Title:
+                        <TextField
+                          id="add-tag-input"
+                          label="Add a tag"
+                          multiline
+                          onChange={this.changeProjectTitle.bind(this)}
+                        />
+                      </p>
+                      <p>
+                        My Role:
+                        <TextField
+                          id="add-tag-input"
+                          label="Add a tag"
+                          multiline
+                          onChange={this.changeRole.bind(this)}
+                        />
+                      </p>
+                      <p>
+                        Project Description:
+                        <TextField
+                          id="add-tag-input"
+                          label="Add a tag"
+                          multiline
+                          onChange={this.changeProjectDescription.bind(this)}
+                        />
+                      </p>
+                      <p>
+                        Technologies Used:
+                        <TextField
+                          id="add-tag-input"
+                          label="Add a tag"
+                          multiline
+                          onChange={this.changetTechUsed.bind(this)}
+                        />
+                      </p>
 
+                      <ImageUploader
+                        withIcon={true}
+                        buttonText="Choose images"
+                        onChange={this.onDrop}
+                        imgExtension={[".jpg", ".gif", ".png", ".gif"]}
+                        maxFileSize={5242880}
+                      />
+                      <Button
+                        style={{ marginLeft: "10px" }}
+                        onClick={this.addPictures.bind(this, "hello")}
+                      >
+                        Add New Project
+                      </Button>
+                    </div>
+                  </TabPanel>
                   {data[0].map((project, index) => (
                     <TabPanel
                       key={index}
@@ -140,6 +249,7 @@ class Home extends Component {
                         </h1>
                         <p>My Role: {project.role}</p>
                         <p>Project Description: {project.description}</p>
+
                         <p>Technologies Used: {project.tech}</p>
                       </div>
                     </TabPanel>
