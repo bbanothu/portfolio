@@ -41,23 +41,10 @@ class Home extends Component {
       role: this.state.role,
       tech: this.state.techUsed,
       title: this.state.projectTitle,
-      images: JSON.stringify(this.state.pictureLinks),
+      images: this.state.pictureLinks,
     }
-    // const requestOptions = {
-    //   method: "POST",
-    //   mode: "no-cors",
-    //   headers: {
-    //     'Accept': 'application/json',
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(data)
-    // };
-
+    console.log(this.state.pictureLinks)
     console.log(data)
-    // fetch(
-    //   "https://us-central1-portfolio-6b427.cloudfunctions.net/addNewProject",
-    //   requestOptions
-    // );
     fetch('https://us-central1-portfolio-6b427.cloudfunctions.net/addNewProject', {
       method: 'POST',
       headers: {
@@ -66,35 +53,6 @@ class Home extends Component {
       },
       body: JSON.stringify(data),
     });
-
-
-    // console.log(data)
-    // const options = {
-    //   url: 'https://us-central1-portfolio-6b427.cloudfunctions.net/addNewProject',
-    //   method: 'POST',
-    //   mode: "cors",
-    //   headers: {
-    //     'Accept': 'application/json',
-    //     'Content-Type': 'application/json;charset=UTF-8',
-    //     'Access-Control-Allow-Origin': '*'
-    //   },
-    //   data: {
-    //     description: this.state.projectDescription,
-    //     github: this.state.github,
-    //     role: this.state.role,
-    //     tech: this.state.techUsed,
-    //     title: this.state.projectTitle,
-    //     images: JSON.stringify(this.state.pictureLinks),
-    //   }
-
-    // };
-
-    // axios(options)
-    //   .then(response => {
-    //     console.log(response.status);
-    //   });
-
-
   }
 
   addLinks() {
@@ -103,12 +61,14 @@ class Home extends Component {
       const mainImage = storageRef.child(this.state.pictures[i].name);
       mainImage.put(this.state.pictures[i]).then((snapshot) => {
         mainImage.getDownloadURL().then((url) => {
-          var newLinksArray = this.state.pictureLinks.concat(url);
+          var newLinksArray = this.state.pictureLinks;
+          newLinksArray.push(url)
           this.setState({ pictureLinks: newLinksArray });
         });
       });
     }
 
+    console.log(this.state.pictureLinks)
     this.uploadNewProject();
   }
   // Single fetch
