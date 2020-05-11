@@ -14,18 +14,102 @@ import {
 } from "@material-ui/core";
 import Loading from "./images/loading.svg";
 import "./css/index.css";
+import { storageRef } from "./firebase/firebase";
+import axios from "axios";
+
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchValTags: "",
       projectTitle: "",
+      github: "",
       role: "",
       projectDescription: "",
       techUsed: "",
       pictures: [],
+      pictureLinks: [],
     };
     this.addPictures = this.addPictures.bind(this);
+    this.addLinks = this.addLinks.bind(this);
+    this.uploadNewProject = this.uploadNewProject.bind(this);
+  }
+
+  async uploadNewProject() {
+    const data = {
+      description: this.state.projectDescription,
+      github: this.state.github,
+      role: this.state.role,
+      tech: this.state.techUsed,
+      title: this.state.projectTitle,
+      images: JSON.stringify(this.state.pictureLinks),
+    }
+    // const requestOptions = {
+    //   method: "POST",
+    //   mode: "no-cors",
+    //   headers: {
+    //     'Accept': 'application/json',
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify(data)
+    // };
+
+    console.log(data)
+    // fetch(
+    //   "https://us-central1-portfolio-6b427.cloudfunctions.net/addNewProject",
+    //   requestOptions
+    // );
+    fetch('https://us-central1-portfolio-6b427.cloudfunctions.net/addNewProject', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+
+    // console.log(data)
+    // const options = {
+    //   url: 'https://us-central1-portfolio-6b427.cloudfunctions.net/addNewProject',
+    //   method: 'POST',
+    //   mode: "cors",
+    //   headers: {
+    //     'Accept': 'application/json',
+    //     'Content-Type': 'application/json;charset=UTF-8',
+    //     'Access-Control-Allow-Origin': '*'
+    //   },
+    //   data: {
+    //     description: this.state.projectDescription,
+    //     github: this.state.github,
+    //     role: this.state.role,
+    //     tech: this.state.techUsed,
+    //     title: this.state.projectTitle,
+    //     images: JSON.stringify(this.state.pictureLinks),
+    //   }
+
+    // };
+
+    // axios(options)
+    //   .then(response => {
+    //     console.log(response.status);
+    //   });
+
+
+  }
+
+  addLinks() {
+    var links = [];
+    for (var i = 0; i < this.state.pictures.length; i++) {
+      const mainImage = storageRef.child(this.state.pictures[i].name);
+      mainImage.put(this.state.pictures[i]).then((snapshot) => {
+        mainImage.getDownloadURL().then((url) => {
+          var newLinksArray = this.state.pictureLinks.concat(url);
+          this.setState({ pictureLinks: newLinksArray });
+        });
+      });
+    }
+
+    this.uploadNewProject();
   }
   // Single fetch
   async loadJson() {
@@ -46,6 +130,11 @@ class Home extends Component {
   changeProjectTitle(e) {
     this.setState({
       projectTitle: e.target.value,
+    });
+  }
+  changeGitHub(e) {
+    this.setState({
+      github: e.target.value,
     });
   }
   changeRole(e) {
@@ -150,6 +239,20 @@ class Home extends Component {
 
                       <div className="row">
                         <div className="col-sm-2">
+                          <p>GitHub: </p>
+                        </div>
+                        <div className="col-sm-10">
+                          <TextField
+                            id="add-tag-input"
+                            label="Github"
+                            multiline
+                            onChange={this.changeGitHub.bind(this)}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="row">
+                        <div className="col-sm-2">
                           <p>My Role: </p>
                         </div>
                         <div className="col-sm-10">
@@ -192,13 +295,13 @@ class Home extends Component {
                       <ImageUploader
                         withIcon={true}
                         buttonText="Choose images"
-                        onChange={this.onDrop}
+                        onChange={this.addPictures}
                         imgExtension={[".jpg", ".gif", ".png", ".gif"]}
                         maxFileSize={5242880}
                       />
                       <Button
                         style={{ marginLeft: "10px" }}
-                        onClick={this.addPictures.bind(this, "hello")}
+                        onClick={this.addLinks.bind(this)}
                       >
                         Add New Project
                       </Button>

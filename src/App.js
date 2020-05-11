@@ -45,6 +45,8 @@ class App extends Component {
                 style={{
                   textAlign: "right",
                   color: "white",
+                  whiteSpace: "nowrap",
+
                   textDecoration: "none",
                 }}
                 href="/"

@@ -131,9 +131,21 @@ class main extends Component {
                       </h1>
                       <p>Project Description: {project.description}</p>
                       <p>Technologies Used: {project.tech}</p>
-                      {images(project.image, project.image1, project.image2)}
-                      {images(project.image3, project.image4, project.image5)}
-                      {images(project.image6, project.image7, project.image8)}
+                      {images(
+                        project.images[0],
+                        project.images[1],
+                        project.images[2]
+                      )}
+                      {images(
+                        project.images[3],
+                        project.images[4],
+                        project.images[5]
+                      )}
+                      {images(
+                        project.images[6],
+                        project.images[7],
+                        project.images[8]
+                      )}
                     </div>
                   </TabPanel>
                 ))}
