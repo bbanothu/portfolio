@@ -27,24 +27,22 @@ class Home extends Component {
       projectDescription: "",
       techUsed: "",
       pictures: [],
-      pictureLinks: [],
     };
     this.addPictures = this.addPictures.bind(this);
-    this.addLinks = this.addLinks.bind(this);
     this.uploadNewProject = this.uploadNewProject.bind(this);
   }
 
-  async uploadNewProject() {
+  makeRequest(newLinksArray) {
+    console.log(newLinksArray)
     const data = {
       description: this.state.projectDescription,
       github: this.state.github,
       role: this.state.role,
       tech: this.state.techUsed,
       title: this.state.projectTitle,
-      images: this.state.pictureLinks,
+      images: newLinksArray,
     }
-    console.log(this.state.pictureLinks)
-    console.log(data)
+    console.log(this.state.data)
     fetch('https://us-central1-portfolio-6b427.cloudfunctions.net/addNewProject', {
       method: 'POST',
       headers: {
@@ -55,22 +53,25 @@ class Home extends Component {
     });
   }
 
-  addLinks() {
-    var newLinksArray = [];
-    for (var i = 0; i < this.state.pictures.length; i++) {
-      const mainImage = storageRef.child(this.state.pictures[i].name);
-      mainImage.put(this.state.pictures[i]).then((snapshot) => {
+  uploadNewProject() {
+    var itemsProcessed = 0;
+    var newLinksArray = []
+    this.state.pictures.forEach((item) => {
+      const mainImage = storageRef.child(item.name);
+      mainImage.put(item).then((snapshot) => {
         snapshot.ref.getDownloadURL().then((url) => {
           newLinksArray.push(url)
-          console.log(url)
+          itemsProcessed++;
+          if (itemsProcessed === this.state.pictures.length) {
+            this.makeRequest(newLinksArray)
+          }
         });
-      });
+      })
     }
-
-    this.setState({ pictureLinks: newLinksArray });
-    console.log(this.state.pictureLinks)
-    this.uploadNewProject();
+    )
   }
+
+
   // Single fetch
   async loadJson() {
     var data = [];
@@ -87,6 +88,8 @@ class Home extends Component {
     data = Promise.all([promise1, promise2, promise3]);
     return data;
   }
+
+
   changeProjectTitle(e) {
     this.setState({
       projectTitle: e.target.value,
@@ -115,10 +118,8 @@ class Home extends Component {
 
   addPictures(picture) {
     this.setState({
-      pictures: this.state.pictures.concat(picture),
+      pictures: picture,
     });
-
-    console.log(this.state.pictures);
   }
 
   handleLogout = () => {
@@ -127,7 +128,6 @@ class Home extends Component {
   };
   render() {
     const { isLoggingOut, logoutError } = this.props;
-
     return (
       <Async promiseFn={this.loadJson}>
         {({ data, error, isLoading }) => {
@@ -259,9 +259,10 @@ class Home extends Component {
                         imgExtension={[".jpg", ".gif", ".png", ".gif"]}
                         maxFileSize={5242880}
                       />
+
                       <Button
                         style={{ marginLeft: "10px" }}
-                        onClick={this.addLinks.bind(this)}
+                        onClick={this.uploadNewProject.bind(this)}
                       >
                         Add New Project
                       </Button>
