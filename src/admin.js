@@ -155,7 +155,7 @@ class Home extends Component {
                   style={{ color: "white", marginTop: "3em" }}
                 >
                   <TabList
-                    className="shadow p-3 mb-5 bg-white  mt-4 ml-3 "
+                    className="shadow p-3 mb-5 bg-white rounded  mt-4 ml-3 "
                     style={{ height: "80%" }}
                   >
                     <Tab tabFor="Add New Project">Add New Project</Tab>

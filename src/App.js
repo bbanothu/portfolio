@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import Login from "./login";
 import Admin from "./admin_verify";
 import Main from "./main";
@@ -217,6 +217,7 @@ class App extends Component {
             <Route exact path="/" component={Main} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/admin" component={Admin} />
+            <Route render={() => <Redirect to={{ pathname: "/" }} />} />
           </Router>
         </Provider>
       </div>
