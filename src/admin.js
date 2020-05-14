@@ -13,7 +13,7 @@ import {
   Collapse,
 } from "@material-ui/core";
 import Loading from "./images/loading.svg";
-import "./css/index.css";
+//import "./css/index.css";
 import { storageRef } from "./firebase/firebase";
 import axios from "axios";
 

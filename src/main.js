@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Async from "react-async";
 import { Tab, TabPanel, Tabs, TabList } from "react-web-tabs";
 import Loading from "./images/loading.svg";
-import "./css/index.css";
+//import "./css/index.css";
 
 class main extends Component {
   async getNewProjectsPage() {
