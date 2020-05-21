@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-d
 import Login from "./login";
 import Admin from "./admin_verify";
 import Main from "./main";
-import "./css/index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./css/index.css";
 import "react-web-tabs/dist/react-web-tabs.css";
 import "react-tabs/style/react-tabs.css";
 import { Provider } from "react-redux";
