@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
 import Login from "./login";
 import Admin from "./admin_verify";
 import Main from "./main";
@@ -214,10 +214,12 @@ class App extends Component {
                 </div>
               </div>
             </nav>
-            <Route exact path="/" component={Main} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/admin" component={Admin} />
-            <Route render={() => <Redirect to={{ pathname: "/" }} />} />
+            <Switch>
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/admin" component={Admin} />
+              <Route path='*' exact={true} component={Main} />
+            </Switch>
+
           </Router>
         </Provider>
       </div>
