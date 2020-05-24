@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Login from "./login";
 import Admin from "./admin_verify";
 import Main from "./main";
@@ -10,6 +10,7 @@ import "react-tabs/style/react-tabs.css";
 import { Provider } from "react-redux";
 import configureStore from "./configureStore";
 import Particles from 'react-particles-js'
+import redirect from "./Redirect"
 const store = configureStore();
 
 class App extends Component {
@@ -45,10 +46,10 @@ class App extends Component {
               {
                 "particles": {
                   "number": {
-                    "value": 100,
+                    "value": 50,
                     "density": {
                       "enable": true,
-                      "value_area": 800
+                      "value_area": 500
                     }
                   },
                   "color": {
@@ -217,9 +218,9 @@ class App extends Component {
             <Switch>
               <Route exact path="/login" component={Login} />
               <Route exact path="/admin" component={Admin} />
-              <Route path='*' exact={true} component={Main} />
+              <Route exact path="/" component={Main} />
+              <Route path='*' exact={true} component={redirect} />
             </Switch>
-
           </Router>
         </Provider>
       </div>

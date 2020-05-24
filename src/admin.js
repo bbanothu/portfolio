@@ -6,16 +6,11 @@ import { Tab, TabPanel, Tabs, TabList } from "react-web-tabs";
 import Button from "react-bootstrap/Button";
 import ImageUploader from "react-images-upload";
 import {
-  Typography,
-  Card,
-  CardContent,
   TextField,
-  Collapse,
 } from "@material-ui/core";
 import Loading from "./images/loading.svg";
-//import "./css/index.css";
+import "./css/index.css";
 import { storageRef } from "./firebase/firebase";
-import axios from "axios";
 
 class Home extends Component {
   constructor(props) {
@@ -149,7 +144,7 @@ class Home extends Component {
           if (data)
             return (
               <div>
-                <Tabs
+                <Tabs className="scale"
                   defaultTab="Add New Project"
                   vertical
                   style={{ color: "white", marginTop: "3em" }}
