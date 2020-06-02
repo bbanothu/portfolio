@@ -134,8 +134,6 @@ class main extends Component {
                   </div>
 
                   <div className="col-sm-12 col-xl-10"
-
-
                     style={{ paddingLeft: "0px", paddingRight: "0px" }}
                   >
                     <TabList
@@ -156,7 +154,8 @@ class main extends Component {
 
                 </div>
 
-                <div className="col-sm-10">
+                <div className="col-sm-10"
+                  style={{ paddingLeft: "0px", paddingRight: "0px" }}>
                   {data[0].map((project, index) => (
                     <TabPanel
                       key={index}

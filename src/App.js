@@ -11,6 +11,7 @@ import { Provider } from "react-redux";
 import configureStore from "./configureStore";
 import Particles from 'react-particles-js'
 import redirect from "./Redirect"
+import Leauge from "./leauge"
 const store = configureStore();
 
 class App extends Component {
@@ -176,7 +177,7 @@ class App extends Component {
                 }}
                 href="/"
               >
-                <h1>BHARATH BANOTHU</h1>
+                <h2>BHARATH BANOTHU</h2>
               </a>
               <button
                 className=" pull-left navbar-toggler"
@@ -218,6 +219,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/login" component={Login} />
               <Route exact path="/admin" component={Admin} />
+              <Route exact path="/leauge" component={Leauge} />
               <Route exact path="/" component={Main} />
               <Route path='*' exact={true} component={redirect} />
             </Switch>
