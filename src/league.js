@@ -154,10 +154,11 @@ class league extends Component {
             arr = this.sortDataByName(arr)
             return (
               <Tabs defaultTab="Win/Losses" vertical style={{ marginTop: "0px" }}>
-                <TabList className="shadow p-3 mb-5 bg-grey rounded ml-3 " style={{ height: "80%" }}>
-                  <h2 style={{ color: "white", textAlign: "center" }}> Overall Stats </h2>
+                <TabList className="shadow pt-1 pl-4 pr-4 bg-grey rounded"
+                  style={{ height: "100%" }}>
+                  <h1 style={{ color: "white", textAlign: "center" }}> Overall Stats </h1>
                   <Tab tabFor="Win/Losses"  ><p style={{ color: "white" }}>Win/Losses</p></Tab>
-                  <h2 style={{ color: "white", textAlign: "center" }}> Player Stats </h2>
+                  <h1 style={{ color: "white", textAlign: "center" }}> Player Stats </h1>
                   {arr.map((user, index) => (
                     <Tab key={index} tabFor={user.username}
                       style={{ color: "white" }}>{user.username}</Tab>
