@@ -11,7 +11,7 @@ import { Provider } from "react-redux";
 import configureStore from "./configureStore";
 import Particles from 'react-particles-js'
 import redirect from "./Redirect"
-import Leauge from "./leauge"
+import Leauge from "./league"
 const store = configureStore();
 
 class navBar extends Component {

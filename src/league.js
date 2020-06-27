@@ -13,7 +13,7 @@ var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 var dataPoints = [];
 var dataPoints1 = [];
 var arr = [];
-class leauge extends Component {
+class league extends Component {
   constructor(props) {
     super(props);
     this.getStatsWins = this.getStatsWins.bind(this);
@@ -138,8 +138,12 @@ class leauge extends Component {
               marginRight: "auto"
             }} ></img></div>
           if (error) {
-            return `Something went wrong: ${error.message}`
-            console.log(error)
+            return (
+              <div className="shadow p-3 mb-5 bg-white rounded mt-3 ml-3 ">
+                <h2>If you are seeing this error, You need to go to this link first, accept it, and then refresh the page:</h2>
+                <a target="_blank" href="https://bbanothupi.ddns.net:3340/inhouseStats"> <h3>Click here to proceed to the link</h3> </a>
+              </div>
+            )
           }
           if (data) {
             var arr = []
@@ -184,4 +188,4 @@ class leauge extends Component {
   }
 }
 
-export default leauge;
+export default league;
