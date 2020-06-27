@@ -24,6 +24,8 @@ class PlayerStats extends Component {
       width: 1100,
       exportEnabled: true,
       animationEnabled: true,
+      theme: "dark1",
+      backgroundColor: "#000000bd",
       title: {
         text: "Wins/Losses with Player" + " - " + this.props.playerStats.username
       },
@@ -61,6 +63,8 @@ class PlayerStats extends Component {
       width: 1100,
       exportEnabled: true,
       animationEnabled: true,
+      theme: "dark1",
+      backgroundColor: "#000000bd",
       title: {
         text: "Wins/Losses with Champion" + " - " + this.props.playerStats.username
       },
@@ -96,17 +100,17 @@ class PlayerStats extends Component {
 
     return (
       <div>
-        <div className="shadow  bg-white rounded mt-4 p-3 mb-5 " >
+        <div className="rounded mt-4 p-3 mb-5 " >
           <CanvasJSChart options={winLossPlayer}
             onRef={ref => this.winLossPlayerChart = ref}
           />
         </div>
-        <div className="shadow  bg-white rounded mt-4 p-3 mb-5 " >
+        <div className="rounded mt-4 p-3 mb-5 " >
           <CanvasJSChart options={winLossChampion}
             onRef={ref => this.winLossChampionChart = ref}
           />
         </div>
-      </div>
+      </div >
     );
   }
 

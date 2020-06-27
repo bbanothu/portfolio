@@ -149,11 +149,14 @@ class leauge extends Component {
             console.log(arr)
             arr = this.sortDataByName(arr)
             return (
-              <Tabs defaultTab="Win/Losses" vertical style={{ color: "white", marginTop: "3em" }}>
-                <TabList className="shadow p-3 mb-5 bg-white rounded mt-4 ml-3 " style={{ height: "80%" }}>
-                  <Tab tabFor="Win/Losses"  ><p style={{ fontWeight: "bold" }}>Win/Losses</p></Tab>
+              <Tabs defaultTab="Win/Losses" vertical style={{ marginTop: "0px" }}>
+                <TabList className="shadow p-3 mb-5 bg-grey rounded ml-3 " style={{ height: "80%" }}>
+                  <h2 style={{ color: "white", textAlign: "center" }}> Overall Stats </h2>
+                  <Tab tabFor="Win/Losses"  ><p style={{ color: "white" }}>Win/Losses</p></Tab>
+                  <h2 style={{ color: "white", textAlign: "center" }}> Player Stats </h2>
                   {arr.map((user, index) => (
-                    <Tab key={index} tabFor={user.username} >{user.username}</Tab>
+                    <Tab key={index} tabFor={user.username}
+                      style={{ color: "white" }}>{user.username}</Tab>
                   ))}
                 </TabList>
                 <TabPanel tabId="Win/Losses" style={{ color: "black", width: "80%" }}>
@@ -163,7 +166,7 @@ class leauge extends Component {
                   </div>
                 </TabPanel>
                 {arr.map((user, index) => (
-                  <TabPanel key={index} tabId={user.username} style={{ color: "black", width: "80%" }}>
+                  <TabPanel key={index} tabId={user.username} style={{ color: "white", width: "80%" }}>
                     <PlayerStats playerStats={user} playerInfoWins={this.getStatsWins(user)} playerInfoLosses={this.getStatsLosses(user)}
                       champInfo={this.getStatsChampions(user)}
                       playerInfo={this.getStatsInfo(user)}

@@ -34,6 +34,9 @@ class WinLoss extends Component {
     const winLoss = {
       exportEnabled: true,
       animationEnabled: true,
+      theme: "dark1",
+      backgroundColor: "#000000bd",
+      opacity: 0.1,
       title: {
         text: "Win/Loss Ratio"
       },
@@ -70,6 +73,8 @@ class WinLoss extends Component {
     const mostWinLoss = {
       exportEnabled: true,
       animationEnabled: true,
+      theme: "dark1",
+      backgroundColor: "#000000bd",
       title: {
         text: "Most Wins/Losses With Player"
       },
@@ -127,6 +132,8 @@ class WinLoss extends Component {
     const KDAOptions = {
       exportEnabled: true,
       animationEnabled: true,
+      theme: "dark1",
+      backgroundColor: "#000000bd",
       title: {
         text: "KDA Ratio"
       },
@@ -184,6 +191,8 @@ class WinLoss extends Component {
     const totalDamageOptions = {
       exportEnabled: true,
       animationEnabled: true,
+      theme: "dark1",
+      backgroundColor: "#000000bd",
       title: {
         text: "Total Damage Dealt To Players"
       },
@@ -210,22 +219,22 @@ class WinLoss extends Component {
     }
     return (
       <div >
-        <div className="shadow p-3 mb-5 bg-white rounded mt-4 ">
+        <div className=" p-3 mb-5 bg-grey rounded mt-4 ">
           <CanvasJSChart options={winLoss}
             onRef={ref => this.winLossChart = ref}
           />
         </div>
-        <div className="shadow p-3 mb-5 bg-white rounded mt-4 ">
+        <div className="shadow p-3 mb-5 bg-grey rounded mt-4 ">
           <CanvasJSChart options={mostWinLoss}
             onRef={ref => this.mostWinLossChart = ref}
           />
         </div >
-        <div className="shadow p-3 mb-5 bg-white rounded mt-4 ">
+        <div className="shadow p-3 mb-5 bg-grey rounded mt-4 ">
           <CanvasJSChart options={KDAOptions}
             onRef={ref => this.KDAChart = ref}
           />
         </div >
-        <div className="shadow p-3 mb-5 bg-white rounded mt-4 ">
+        <div className="shadow p-3 mb-5 bg-grey rounded mt-4 ">
           <CanvasJSChart options={totalDamageOptions}
             onRef={ref => this.totalDamageChart = ref}
           />

@@ -11,6 +11,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
+import NavBar from "./navBar";
 
 const styles = () => ({
   "@global": {
@@ -64,50 +65,53 @@ class Login extends Component {
       return <Redirect to="/admin" />;
     } else {
       return (
-        <Container component="main" maxWidth="xs">
-          <Paper className={classes.paper}>
-            <Avatar className={classes.avatar}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Sign in
+        <div>
+          <NavBar />
+          <Container component="main" maxWidth="xs">
+            <Paper className={classes.paper}>
+              <Avatar className={classes.avatar}>
+                <LockOutlinedIcon />
+              </Avatar>
+              <Typography component="h1" variant="h5">
+                Sign in
             </Typography>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              onChange={this.handleEmailChange}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              onChange={this.handlePasswordChange}
-            />
-            {loginError && (
-              <Typography component="p" className={classes.errorText}>
-                Incorrect email or password.
-              </Typography>
-            )}
-            <Button
-              type="button"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              onClick={this.handleSubmit}
-            >
-              Sign In
+              <TextField
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                onChange={this.handleEmailChange}
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                onChange={this.handlePasswordChange}
+              />
+              {loginError && (
+                <Typography component="p" className={classes.errorText}>
+                  Incorrect email or password.
+                </Typography>
+              )}
+              <Button
+                type="button"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                onClick={this.handleSubmit}
+              >
+                Sign In
             </Button>
-          </Paper>
-        </Container>
+            </Paper>
+          </Container>
+        </div>
       );
     }
   }
