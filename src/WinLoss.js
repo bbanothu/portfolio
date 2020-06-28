@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
-import Async from "react-async"
-import { Tab, TabPanel, Tabs, TabList } from "react-web-tabs";
-import Loading from "./images/loading.svg";
 import "./css/index.css"
-
 import CanvasJSReact from './canvasjs.react';
-var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 var dataPointsTemp = [];
@@ -355,7 +350,6 @@ class WinLoss extends Component {
 
 
         /// Total Damage Chart
-        var temp = []
         for (var i = 0; i < arr.length; i++) {
           totalDamage.push({
             y: arr[i].totalDamageDealt,

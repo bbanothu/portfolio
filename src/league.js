@@ -3,16 +3,9 @@ import Async from "react-async"
 import { Tab, TabPanel, Tabs, TabList } from "react-web-tabs";
 import Loading from "./images/loading.svg";
 import "./css/index.css"
-import CanvasJSReact from './canvasjs.react';
 import WinLoss from "./WinLoss"
 import PlayerStats from "./PlayerStats"
 
-
-var CanvasJS = CanvasJSReact.CanvasJS;
-var CanvasJSChart = CanvasJSReact.CanvasJSChart;
-var dataPoints = [];
-var dataPoints1 = [];
-var arr = [];
 class league extends Component {
   constructor(props) {
     super(props);
