@@ -163,6 +163,7 @@ class Home extends Component {
                               <ul>
                                 {data[3].map((hobbies, index) => (
                                   <li key={index} value={hobbies} index={index}>{hobbies.name}</li>
+  
                                 ))}
                               </ul>
                             </td>

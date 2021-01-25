@@ -12,6 +12,8 @@ import Loading from "./images/loading.svg";
 import "./css/index.css";
 import { storageRef } from "./firebase/firebase";
 import NavBar from "./navBar";
+
+
 class Home extends Component {
   constructor(props) {
     super(props);

@@ -12,6 +12,7 @@ import configureStore from "./configureStore";
 import Particles from 'react-particles-js'
 import redirect from "./Redirect"
 import League from "./league"
+import AmmenityPassMain from "./AmmenityPass/AmmenityPassMain"
 const store = configureStore();
 
 class App extends Component {
@@ -148,8 +149,8 @@ class App extends Component {
               <Route exact path="/login" component={Login} />
               <Route exact path="/admin" component={Admin} />
               <Route exact path="/league" component={League} />
+              <Route exact path="/AmmenityPass" component={AmmenityPassMain} />
               <Route exact path="/" component={Main} />
-              <Route path='*' exact={true} component={redirect} />
             </Switch>
           </Router>
         </Provider>

@@ -244,7 +244,7 @@ class WinLoss extends Component {
     var mostWinLossChart = this.mostWinLossChart;
     var KDAChart = this.KDAChart;
     var totalDamageChart = this.totalDamageChart;
-    fetch('https://bbanothupi.ddns.net:3340/inhouseStats')
+    fetch('https://192.168.86.104:3340/inhouseStats')
       .then(function (response) {
         return response.json();
       })
