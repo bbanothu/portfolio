@@ -20,7 +20,7 @@ class league extends Component {
 
   // Single fetch
   loadJson = () =>
-    fetch("https://192.168.86.104:3340/inhouseStats",
+    fetch("https://bbanothupi.ddns.net:3340/inhouseStats",
       {
         method: "GET", // POST, PUT, DELETE, etc.
         headers: {
@@ -134,7 +134,7 @@ class league extends Component {
             return (
               <div className="shadow p-3 mb-5 bg-white rounded mt-3 ml-3 ">
                 <h2>If you are seeing this error, You need to go to this link first, accept it, and then refresh the page:</h2>
-                <a target="_blank" href="https:/192.168.86.104:3340:3340/inhouseStats"> <h3>Click here to proceed to the link</h3> </a>
+                <a target="_blank" href="https://bbanothupi.ddns.net:3340/inhouseStats"> <h3>Click here to proceed to the link</h3> </a>
               </div>
             )
           }

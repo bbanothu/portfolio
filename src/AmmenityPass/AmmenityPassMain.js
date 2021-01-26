@@ -19,19 +19,21 @@ const AmmenityPassMain = () => {
   const [dropdown, setDropDown] = useState([]);
   const [dropDownFiltered, setDropDownFiltered] = useState([]);
   const [password, setPassword] = useState("");
-  const [currentUnit, setCurrentUnit] = useState({ unit: "   Select An Apartment" });
+  const [currentUnit, setCurrentUnit] = useState({ unit: "   Unit", id: "", scope: "" });
 
   const [accountValidated, setAccountValidated] = useState(false);
 
   const [dropDownReservatiion, setDropDownReservatiion] = useState([]);
-  const [currentReservation, setCurrentReservation] = useState({ name: "Select a reservation type" });
+  const [currentReservation, setCurrentReservation] = useState({ name: "Select a reservation type", policy: "" });
 
 
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
   const [phone, setPhone] = useState("");
-  const [time, setTime] = useState("");
+  const [time, setTime] = useState("0");
   const [email, setEmail] = useState("");
+
+  const [success, setSuccess] = useState("");
 
   const setDropDownValues = (value) => {
     setDropDown(value);
@@ -53,27 +55,47 @@ const AmmenityPassMain = () => {
 
   const makeRequest = () => {
 
-    console.log(currentUnit);
-    console.log(currentReservation)
-    let body = {
-      unit: currentUnit.scope,
-      passcode: password,
-      reservation: currentUnit.id,
-      date: date,
-      time: time,
-      policy: currentReservation.policy,
-      name: name,
-      tel: phone,
-      email: email,
 
+    var myRe = new RegExp("^\\d{4}-\\d{2}-\\d{2}$");
+    var myDate = myRe.test(date);
+
+
+    console.log(myDate)
+    const currentTime = time.replace(/\s/g, '');
+    if (myDate && (parseInt(currentTime) > 0 && parseInt(currentTime) < 20) && name.length > 1 && currentReservation.policy.length > 1 && currentTime.length == 2) {
+      console.log(currentUnit);
+      console.log(currentReservation)
+      let body = {
+        unit: currentUnit.scope,
+        passcode: password,
+        reservation: currentUnit.id,
+        date: date,
+        time: currentTime,
+        policy: currentReservation.policy,
+        name: name.replace(/\s/g, '+'),
+        tel: phone.replace(/\s/g, '+'),
+        email: email,
+
+      }
+
+
+      axios.post(
+        "https://bbanothupi.ddns.net:3340/addNewRequest",
+        body,
+      ).then(response => {
+        if (response.data === "Success") {
+          setSuccess("Your reservation for " + date + " at time " + time + " was successfull");
+        } else {
+          setSuccess("Your reservation for " + date + " at time " + time + "didnt work");
+        }
+        console.log(response);
+      }).catch((e) => {
+        setSuccess("Your reservation for " + date + " at time " + time + " didnt work");
+      })
+    } else {
+      setSuccess("Fill out the fields right")
     }
 
-    axios.post(
-      "https://bbanothupi.ddns.net:3340/addNewRequest",
-      body,
-    ).then(response => {
-      console.log(response);
-    });
 
   }
 
@@ -166,86 +188,93 @@ const AmmenityPassMain = () => {
     <>
       {Object.keys(allApartments).length > 0 ?
         <div>
-          <Card style={{ width: '60%' }}>
-            <Card.Body>
-              <Card.Title>Select Apartment</Card.Title>
-              <Card.Text>
-
-
-                <RadioGroup name="fruits" onChange={(e) => setDropDownValues(e)}>
-                  <Radio defaultChecked={true} value={oneHundred} className="radio-button" />100
-                  <Radio value={oneFifty} className="radio-button" style={{ marginLeft: "20px" }} />150
+          <div className="shadow p-3 mb-5 bg-white rounded mt-3 ml-3 ">
+            <h3>You need to go to this link first, hit advanced, click on continue/proceed bbanothupi.ddns.net:3340. once you see a bunch of random data, come back to this page and refresh it</h3>
+            <h3>I don't know how to get ssl working, I promise im not hacking you :)</h3>
+            <a target="_blank" href="https://bbanothupi.ddns.net:3340/inhouseStats"> <h3>Click here to proceed to the link</h3> </a>
+          </div>
+          <div className="shadow p-3 mb-5 bg-white rounded mt-3 ml-3 ">
+            <Card style={{ width: '100%' }}>
+              <Card.Body>
+                <Card.Title>Select Apartment</Card.Title>
+                <Card.Text>
+                  <RadioGroup name="Apartments" onChange={(e) => setDropDownValues(e)}>
+                    <Radio defaultChecked={true} value={oneHundred} className="radio-button" />100
+                    <Radio value={oneFifty} className="radio-button" style={{ marginLeft: "20px" }} />150
                 </RadioGroup>
 
 
-              </Card.Text>
-              <Card.Text>
-                <div style={{ display: "inline" }} >
-                  <Form.Control
-                    style={{ display: "inline", width: "49%" }}
-                    size="sm" type="text" placeholder="Enter Apartment Number" onChange={(e) => changeApartmentNumber(e.target.value)} />
-                  <Dropdown
-                    style={{ display: "inline", width: "49%" }}>
-                    <Dropdown.Toggle
-                      variant="secondary btn-sm"
-                      id="dropdown-basic">
-                      {currentUnit.unit}
-                    </Dropdown.Toggle>
-
-                    <Dropdown.Menu style={{ backgroundColor: '#73a47' }}>
-                      {dropDownFiltered.map((key) => {
-                        return (
-                          <Dropdown.Item href="#" onClick={() => setCurrentUnit(key)} >{key.unit.substring(3)}</Dropdown.Item>
-                        )
-                      })}
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </div>
-                <Form.Control size="sm" type="text" placeholder="Enter PassCode"
-                  onChange={(e) => setPassword(e.target.value)} />
-
-                <Button style={{ marginBottom: '10px' }} onClick={() => validateAccount()}> Validate Account </Button>
-
-                {accountValidated ?
-                  <div>
+                </Card.Text>
+                <Card.Text>
+                  <div style={{ display: "inline" }} >
+                    <div>Enter Apartment # (if its below 4 digits, add a 0 infront) </div>
+                    <Form.Control
+                      style={{ display: "inline", width: "90%" }}
+                      size="sm" type="text" placeholder="Enter Apartment # " onChange={(e) => changeApartmentNumber(e.target.value)} />
                     <Dropdown
-                      style={{ display: "inline", width: "49%" }}>
+                      style={{ display: "inline", width: "9%", overflow: "scroll", height: "300px" }}>
                       <Dropdown.Toggle
                         variant="secondary btn-sm"
                         id="dropdown-basic">
-                        {currentReservation.name}
+                        {currentUnit.unit}
                       </Dropdown.Toggle>
-
-                      <Dropdown.Menu style={{ backgroundColor: '#73a47' }}>
-                        {dropDownReservatiion.map((key) => {
+                      <Dropdown.Menu style={{ backgroundColor: '#73a47', overflow: "scroll", minHeight: "100px", maxHeight: "300px" }}>
+                        {dropDownFiltered.map((key) => {
                           return (
-                            <Dropdown.Item href="#" onClick={() => setCurrentReservation(key)} >{key.name}</Dropdown.Item>
+                            <Dropdown.Item href="#" onClick={() => setCurrentUnit(key)} >{key.unit.substring(3)}</Dropdown.Item>
                           )
                         })}
                       </Dropdown.Menu>
                     </Dropdown>
-
-
-                    <Form.Group>
-                      <Form.Control size="sm" type="text" onChange={(e) => setName(e.target.value)} placeholder="Enter Name" />
-                      <Form.Control size="sm" type="text" onChange={(e) => setPhone(e.target.value)} placeholder="Enter Phone #" />
-                      <Form.Control size="sm" type="text" onChange={(e) => setDate(e.target.value)} placeholder="Enter Date" />
-                      <Form.Control size="sm" type="text" onChange={(e) => setTime(e.target.value)} placeholder="Enter Time" />
-                      <Form.Control size="sm" type="text" onChange={(e) => setEmail(e.target.value)} placeholder="Enter Email" />
-                    </Form.Group>
                   </div>
-                  :
-                  <div> Press validate account </div>
+                  <Form.Control size="sm" type="text" placeholder="Enter PassCode"
+                    onChange={(e) => setPassword(e.target.value)} />
 
-                }
+                  <Button style={{ marginBottom: '10px' }} onClick={() => validateAccount()}> Validate Account </Button>
 
-              </Card.Text>
-              <Card.Body>
+                  {accountValidated ?
+                    <div>
+                      <Dropdown
+                        style={{ display: "inline", width: "100%" }}>
+                        <Dropdown.Toggle
+                          class="btn btn-secondary dropdown-toggle"
+                          id="dropdown-basic"
+                          style={{ display: "inline", width: "100%" }}
+                        >
+                          {currentReservation.name}
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu style={{ backgroundColor: '#73a47' }}>
+                          {dropDownReservatiion.map((key) => {
+                            return (
+                              <Dropdown.Item href="#" onClick={() => setCurrentReservation(key)} >{key.name}</Dropdown.Item>
+                            )
+                          })}
+                        </Dropdown.Menu>
+                      </Dropdown>
+
+
+                      <Form.Group>
+                        <Form.Control size="sm" type="text" onChange={(e) => setName(e.target.value)} placeholder="Enter only first name" />
+                        <Form.Control size="sm" type="text" onChange={(e) => setPhone(e.target.value)} placeholder="Enter Phone # if you want" />
+                        <Form.Control size="sm" type="text" onChange={(e) => setDate(e.target.value)} placeholder="Enter Date -> in this format (YYYY-MM-DD)" />
+                        <p style={{ paddinBottom: "0px", marginBottom: "0px", fontWeight: "bold" }}>Enter time using 2 digits in military time (5pm = 17, 9am = 09, etc) </p>
+                        <Form.Control style={{ paddingTop: "0px" }} size="sm" type="text" onChange={(e) => setTime(e.target.value)} placeholder="Enter Time (In military)" />
+                      </Form.Group>
+                    </div>
+                    :
+                    <div> Account not validated </div>
+
+                  }
+
+                </Card.Text>
+                <Card.Body>
+                </Card.Body>
               </Card.Body>
-            </Card.Body>
-            <Button style={{ paddingLeft: '5px', paddingRight: '5px' }} onClick={() => makeRequest()}> Send Request </Button>
-          </Card>
-
+              <Button style={{ paddingLeft: '5px', paddingRight: '5px' }} onClick={() => makeRequest()}> Send Request </Button>
+              <div> <h1> {success} </h1></div>
+            </Card>
+          </div>
 
 
 
